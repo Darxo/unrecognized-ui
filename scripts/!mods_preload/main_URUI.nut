@@ -1,7 +1,7 @@
 ::modURUI <- {
 	ID = "mod_URUI",
 	Name = "Unrecognized UI",
-	Version = "1.0.0",
+	Version = "1.0.1",
 	Const = {},
 	Class = {}
 }

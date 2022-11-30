@@ -43,15 +43,15 @@
             {
                 if (textEntry.id == 1 && textEntry.type == "title")
                 {
-                    if (overlayMode == ::modURUI.Const.AlwaysShow.Setting) textEntry.text = ::modURUI.Const.AlwaysShow.ButtonTitle;
-                    if (overlayMode == ::modURUI.Const.OnlyWhileDamaged.Setting) textEntry.text = ::modURUI.Const.OnlyWhileDamaged.ButtonTitle;
-                    if (overlayMode == ::modURUI.Const.NeverShow.Setting) textEntry.text = ::modURUI.Const.NeverShow.ButtonTitle;
+                    if (overlayMode == ::modURUI.COB.AlwaysShow.Setting) textEntry.text = ::modURUI.COB.AlwaysShow.ButtonTitle;
+                    if (overlayMode == ::modURUI.COB.OnlyWhileDamaged.Setting) textEntry.text = ::modURUI.COB.OnlyWhileDamaged.ButtonTitle;
+                    if (overlayMode == ::modURUI.COB.NeverShow.Setting) textEntry.text = ::modURUI.COB.NeverShow.ButtonTitle;
                 }
                 if (textEntry.id == 2 && textEntry.type == "description")
                 {
-                    if (overlayMode == ::modURUI.Const.AlwaysShow.Setting) textEntry.text = ::modURUI.Const.AlwaysShow.ButtonDescription;
-                    if (overlayMode == ::modURUI.Const.OnlyWhileDamaged.Setting) textEntry.text = ::modURUI.Const.OnlyWhileDamaged.ButtonDescription;
-                    if (overlayMode == ::modURUI.Const.NeverShow.Setting) textEntry.text = ::modURUI.Const.NeverShow.ButtonDescription;
+                    if (overlayMode == ::modURUI.COB.AlwaysShow.Setting) textEntry.text = ::modURUI.COB.AlwaysShow.ButtonDescription;
+                    if (overlayMode == ::modURUI.COB.OnlyWhileDamaged.Setting) textEntry.text = ::modURUI.COB.OnlyWhileDamaged.ButtonDescription;
+                    if (overlayMode == ::modURUI.COB.NeverShow.Setting) textEntry.text = ::modURUI.COB.NeverShow.ButtonDescription;
                 }
             }
         }

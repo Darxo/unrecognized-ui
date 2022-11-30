@@ -54,5 +54,9 @@ Improves the responsiveness and usefulness of the item filters available in the 
 
 ### Changes: ###
 
+1.0.1
+    - fixes the missing tooltips for the overlay stats toggle button
+    - fixes the temporary Overlay Display on hit feature not working
+
 1.0.0
     - release on NexusMods

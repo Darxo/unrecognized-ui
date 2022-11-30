@@ -129,7 +129,7 @@ this.custom_overlay_bars <- {
         this.m.ChestBar.setBrush(this.translateToBar(_bodyArmor));
         this.m.HitpointBar.setBrush(this.translateToBar(_hitpoints));
         this.updateOverlayBarPositions();   // Setting new brush always resets the position of those sprites
-        this.updateColors()     // Setting new brush always resets the color  of those sprites
+        this.updateColors()     // Setting new brush always resets the color of those sprites
 
         if (::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue() == ::modURUI.COB.AlwaysShow.Setting) return;
         if (_hitpoints == 0.0) return;
@@ -142,7 +142,11 @@ this.custom_overlay_bars <- {
     // Decides whether the Overlay should is visible
     function checkVisibility( _forceUpdate = false )
     {
-        if (this.m.IsForceDisplaying != 0) this.setVisible(true, _forceUpdate);
+        if (this.m.IsForceDisplaying != 0)
+        {
+            this.setVisible(true, _forceUpdate);
+            return;
+        }
 
         local displayMode = ::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue();
         if      (displayMode == ::modURUI.COB.AlwaysShow.Setting)   this.setVisible(true, _forceUpdate);
@@ -308,11 +312,9 @@ this.custom_overlay_bars <- {
 
     function forceDisplayOverlay(_visibleFor)
     {
-        this.setOverlayBarVisibility(true);
-        this.setIconVisibility(true);
-        // this.updateColors();    // This may fix the bug where höllenhund are gaining a white HP bar when hit and teleporting. Doesnt fix that bug
-
         this.m.IsForceDisplaying++;
+        this.checkVisibility(true);     // true is probably not needed. But shouldnt matter much performance wise
+
 		::Time.scheduleEvent(::TimeUnit.Real, _visibleFor, this.decrementIsForceDisplaying.bindenv(this), {});
     }
 
@@ -339,7 +341,7 @@ this.custom_overlay_bars <- {
         ::Time.scheduleEvent(::TimeUnit.Real, 50, this.negateFade.bindenv(this), {});
     }
 
-    function asyncFullUIUpdate( _data )
+    function asyncFullUIUpdate( _data ) // scheduleEvent requires the targeted function to have 1 parameter. Thats why I use this dummy function
     {
         this.fullUIUpdate();
     }
