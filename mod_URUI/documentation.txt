@@ -1,0 +1,58 @@
+
+Collection of UI-Features to improve quality of life. Includes an Overlay Bar rework and Itemfilter rework.
+Goal is to show certain information or hide unnecessary clutter to improve visual clarity
+
+Improves the responsiveness and usefulness of the item filters available in the game.
+
+### Main Changes
+
+- Overlay Bars and Icons during battle are completely reworked. They can now be colored and scaled.
+- Add new customizable option to only show overlay bars on characters which are "damaged"
+- New missing armor indicator in the formation screen to quickly see who needs a new armor
+- Customizable thresholds for the missing health/armor indicator
+- Mood Icon in Town/World Screen that either shows lowest mood or average mood of your company
+- Removes the delay when clicking an item filter
+- New option to hide all empty item slots
+- Item Filter also apply to the shop
+- New third highlight options for blocked tiles with a unique higlight for objects blocking visibility
+
+### Minor Changes
+
+- Removes the mini helmet, -chest and -health icons on the bars during battle
+- Moved Shields from the Armor-Filter over to the Weapon-Filter
+- Active filter now have a slight green border
+- Adds Support for a warning Icon in Town/World or Formation Screen that can be spawned by other mods.
+- The last chosen higlighting option for blocked tiles is now remembered throughout the whole playthrough
+
+### Requirements ###
+
+- Modding Script Hooks
+- Modding Standards and Utilities (MSU)
+
+### Compatibility
+
+- Should be safe to remove from- and add to any existing savegames
+- UI Mods that cover similar features will likely have conflicts with this mod
+
+### Known Issues: ###
+
+- Necrosavants teleporting inside bushes become invisible, including their Overlay. Not 100% if this is this mods fault. But if then Its probably because of the fadeToStoredColors overwrite
+- The vanilla behavior of the bars might not be fully emulated. I'm open for any detail that I missed. (except the missing helmet/armor/health Icon. They are gone on purpose)
+- The overlay bars of enemies with specific animations like with teleporting abilties will briefly lose their color and turn white before they turn back to the chosen color. I don't know a better solution than fight the symptoms.
+- The Overlay vanishes instantly instead of fading out after an actor was damaged (as opposed to vanilla behavior). Don't think this is worth the effort of fixing.
+
+### Future Plans: ###
+
+- Implement the vanilla feature of highlighting the portion of life that was just lost
+- Remember itemfilter for differen shops
+- add a forceDisplayOverlay call when new Icons/Effects were applied to a character (e.g. negative on allies and positive on enemies)
+- Analyse/Split up the Mini-Icons. Overlay could react to changing buffs/debuffs/dots. Or only display certain types while hiding others
+- Indicator for when the Weapon/Shield are at lower durability. Though it is getting tight, trying to fit in more symbols down there
+- Cleaner way of getting the filter information from squirrel to javascript
+- Save information about last filter between savegames
+- Display the spaceUsed and spaceMax depending on the current filter setting
+
+### Changes: ###
+
+1.0.0
+    - release on NexusMods

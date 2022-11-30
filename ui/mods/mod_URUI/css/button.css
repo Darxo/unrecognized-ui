@@ -1,0 +1,9 @@
+
+/*
+Vanilla overwrite to make an active hud_button easier to make out
+
+*/
+.ui-control.button-3.is-active
+{
+    background-image: url("coui://gfx/ui/skin/button_03_active.png");
+}

@@ -1,0 +1,12 @@
+
+
+.character-screen-container .inventory-list-module .filter-panel .l-button.hide-empty-slots-button
+{
+    left: 30.0rem;
+}
+
+/*  We are moving the mood filter button more to the right*/
+.character-screen-container .inventory-list-module .filter-panel .l-button.is-mood-filter
+{
+    left: 37.0rem;
+}
