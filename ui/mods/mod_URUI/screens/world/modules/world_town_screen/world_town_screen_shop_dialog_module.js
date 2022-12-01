@@ -133,46 +133,42 @@ WorldTownScreenShopDialogModule.prototype.updateShopList = function (_data)
 
 WorldTownScreenShopDialogModule.prototype.filterSingleItem = function(_itemIndex, _filter, _isPlayerStash)
 {
+    var itemList = this.mShopList;
+    var itemSlots = this.mShopSlots;
     if (_isPlayerStash)
     {
-        if (this.mStashList[_itemIndex] === undefined) return;      // just in case. Dont know where this ever be relevant tho
-
-        if (this.mStashList[_itemIndex] === null && modURUI.SHOW_EMPTY_SLOTS_SHOP )
-        {
-            modURUI.showSlot(this.mStashSlots[_itemIndex]);
-            return;
-        }
-
-        // Special rule to make sure no item is ever hidden.
-        // Some new itemtypes may not have been put into the Filter1 (All) yet. Or maybe there are items with no itemtype?
-        if (this.mStashList[_itemIndex] !== null && _filter === this.mFilter1)
-        {
-            modURUI.showSlot(this.mStashSlots[_itemIndex]);
-            return;
-        }
-
-        if ((this.mStashList[_itemIndex] !== null) && ((this.mStashList[_itemIndex].type & _filter) !== 0))
-        {   // the item i exists and matches the filter:
-            modURUI.showSlot(this.mStashSlots[_itemIndex]);
-        }
-        else
-        {   // the item i does not exist or it does not match the filter:
-            modURUI.hideSlot(this.mStashSlots[_itemIndex]);
-        }
+        itemList = this.mStashList;
+        itemSlots = this.mStashSlots;
     }
-    else    // Shop behaves a little different for filtering:
-    {
-        if (this.mShopList[_itemIndex] === undefined) return;   // This is mostly important for Shops. Somehow them gaining slots breaks this filter otherwise
-        if (this.mShopList[_itemIndex] === null) return;      // empty slots are always ignored on shops
 
-        if ((_filter === this.mFilter1) || ((this.mShopList[_itemIndex].type & _filter) !== 0))
-        {   // the item i matches the filter:
-            modURUI.showSlot(this.mShopSlots[_itemIndex]);
-        }
-        else
-        {   // the item i does not match the filter:
-            modURUI.hideSlot(this.mShopSlots[_itemIndex]);
-        }
+    if (itemList[_itemIndex] === undefined)     // This is mostly important for Shops. Them gaining slots breaks this filter otherwise
+    {
+        if (modURUI.SHOW_EMPTY_SLOTS_SHOP) modURUI.showSlot(itemSlots[_itemIndex]);
+        else modURUI.hideSlot(itemSlots[_itemIndex]);
+        return;
+    }
+
+    if (itemList[_itemIndex] === null && modURUI.SHOW_EMPTY_SLOTS_SHOP )
+    {
+        modURUI.showSlot(itemSlots[_itemIndex]);
+        return;
+    }
+
+    // Special rule to make sure no item is ever hidden.
+    // Some new itemtypes may not have been put into the Filter1 (All) yet. Or maybe there are items with no itemtype?
+    if (itemList[_itemIndex] !== null && _filter === this.mFilter1)
+    {
+        modURUI.showSlot(itemSlots[_itemIndex]);
+        return;
+    }
+
+    if ((itemList[_itemIndex] !== null) && ((itemList[_itemIndex].type & _filter) !== 0))
+    {   // the item i exists and matches the filter:
+        modURUI.showSlot(itemSlots[_itemIndex]);
+    }
+    else
+    {   // the item i does not exist or it does not match the filter:
+        modURUI.hideSlot(itemSlots[_itemIndex]);
     }
 }
 
@@ -198,10 +194,10 @@ WorldTownScreenShopDialogModule.prototype.applyItemFilter = function(_filter, _s
 }
 
 // Registering of the tooltip of your new button
-var modURUI_WorldTownScreen_bindTooltipss = WorldTownScreenShopDialogModule.prototype.bindTooltips;
+var modURUI_WorldTownScreen_bindTooltips = WorldTownScreenShopDialogModule.prototype.bindTooltips;
 WorldTownScreenShopDialogModule.prototype.bindTooltips = function ()
 {
-	modURUI_WorldTownScreen_bindTooltipss.call(this);
+	modURUI_WorldTownScreen_bindTooltips.call(this);
 	this.mHideEmptySlotsButton.bindTooltip({ contentType: 'msu-generic', modId: modURUI.ID, elementId:  'TownShopDialogModule.ToggleSlotVisibility' });
 };
 
