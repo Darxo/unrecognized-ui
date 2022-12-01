@@ -1,4 +1,4 @@
-::mods_hookNewObjectOnce("ui/screens/world/modules/world_town_screen/town_shop_dialog_module", function(o)
+::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_shop_dialog_module", function(o)
 {
 // Useful Item Filter
     // Pass information about our squirrel item filter over to javascript
