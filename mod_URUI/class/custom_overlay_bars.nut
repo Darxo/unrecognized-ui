@@ -1,27 +1,26 @@
+// custom class that controls the display of overlay bars and overlay mini icons on top of an actor
 this.custom_overlay_bars <- {
 	m = {
     // Set during init
-        Actor = null,
-        HelmetBar = null,
-        ChestBar = null,
-        HitpointBar = null,
-        BackgroundBars = null,
-        OverlayMiniIcons = [],  // Array with the size of this.m.IconsMax that is generated once for every character and then updated
+        Actor = null,               // Actor object that this overlay is attached to
+        HelmetBar = null,           // helmet armor bar sprite
+        ChestBar = null,            // chest armor bar sprite
+        HitpointBar = null,         // hitpoints bar sprite
+        BackgroundBars = null,      // backgroudn bars sprite
+        OverlayMiniIcons = [],      // Array with the size of this.m.IconsMax that is generated once for every character and then updated
 
     // Saved inbetween different function calls
         CurrentVerticalOffset = 0,
         HeadArmor = 0.0,
         BodyArmor = 0.0,
         Health = 0.0,
-        IsVisible = false,       // An overlay that is invisible ignores most updates to save performance
+        IsVisible = false,          // An overlay that is invisible ignores most updates to save performance
         DisplayedMiniIcons = 0,     // amount of miniIcons that are currently displayed
+        // Colors are saved here so they don't need to be read out of the mod settings every time is applied. Because changing the brush/bar length removes the old color
         HelmetColor = null,
         ChestColor = null,
         AllyHealthColor = null,
         EnemyHealthColor = null,
-
-        InitialUpdateDone = false,      // To make sure we do a proper UI update once at the start of each battle but no more for performance reaons
-
 
     // Async-Counter
         IsForceDisplaying = 0,  // Are we force displaying this Overlay regardless of the display?  Usually this is 1 at most. But an entity is hit multiple times quickly then this can be higher
@@ -35,8 +34,8 @@ this.custom_overlay_bars <- {
         SizeOfIcon = 20,    // Only influences position and therefor gaps between Icons. Not their actual size
         IconStartingHeight = 110,
         BarsStartingHeight = 90,
-        IconSpriteName = "MDN_OverlayMiniIcon_",
-        OverlayBarBrushes = [
+        IconSpriteName = "MDN_OverlayMiniIcon_",    // prefix for mini icon sprite names
+        OverlayBarBrushes = [                       // 24 different sizes of bars to display all the values that you hopefully need
             "MDN_entityoverlay_bar_1",
             "MDN_entityoverlay_bar_2",
             "MDN_entityoverlay_bar_3",
@@ -92,7 +91,7 @@ this.custom_overlay_bars <- {
         }
     }
 
-    // Just rerender everything
+    // Do a simple check for the visibility of the bars.
     function setDirty(_bool = true)
     {
         if (this.m.Actor.isPlacedOnMap() == false) return;
@@ -120,7 +119,8 @@ this.custom_overlay_bars <- {
     {
         if (!::MSU.Utils.hasState("tactical_state")) return;    // This gets probably called all the time when bros gain armor/health on world map
 
-        if (_headArmor == this.m.HeadArmor && _bodyArmor == this.m.BodyArmor && _hitpoints == this.m.Health) return;
+        if (_headArmor == this.m.HeadArmor && _bodyArmor == this.m.BodyArmor && _hitpoints == this.m.Health) return;    // Nothing has changed
+        // Save current values so we can compare against them in order to save performance
         this.m.HeadArmor = _headArmor;
         this.m.BodyArmor = _bodyArmor;
         this.m.Health = _hitpoints;
@@ -129,13 +129,14 @@ this.custom_overlay_bars <- {
         this.m.ChestBar.setBrush(this.translateToBar(_bodyArmor));
         this.m.HitpointBar.setBrush(this.translateToBar(_hitpoints));
         this.updateOverlayBarPositions();   // Setting new brush always resets the position of those sprites
-        this.updateColors()     // Setting new brush always resets the color of those sprites
+        this.updateColors()                 // Setting new brush always resets the color of those sprites
 
+        // Now we check whether we force the overlay to display because the health or armor on it just changed
         if (::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue() == ::modURUI.COB.AlwaysShow.Setting) return;
         if (_hitpoints == 0.0) return;
-
         local forceDisplayDuration = ::modURUI.Mod.ModSettings.getSetting("ForceDisplayDuration").getValue();
         if (forceDisplayDuration == 0) return;
+
         this.forceDisplayOverlay(forceDisplayDuration * 1000);
     }
 
@@ -149,15 +150,15 @@ this.custom_overlay_bars <- {
         }
 
         local displayMode = ::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue();
-        if      (displayMode == ::modURUI.COB.AlwaysShow.Setting)   this.setVisible(true, _forceUpdate);
-        else if (displayMode == ::modURUI.COB.NeverShow.Setting)    this.setVisible(false, _forceUpdate);
+        if      (displayMode == ::modURUI.COB.AlwaysShow.Setting)           this.setVisible(true, _forceUpdate);
+        else if (displayMode == ::modURUI.COB.NeverShow.Setting)            this.setVisible(false, _forceUpdate);
         else if (displayMode == ::modURUI.COB.OnlyWhileDamaged.Setting)
         {
-            local skinCountsAsUnDamaged   = ::modURUI.Mod.ModSettings.getSetting("SkinCountsAsUnDamaged").getValue();
+            local skinCountsAsUnDamaged = ::modURUI.Mod.ModSettings.getSetting("SkinCountsAsUnDamaged").getValue();
             local armorThreshold        = ::modURUI.Mod.ModSettings.getSetting("OverlayArmorThreshold").getValue() / 100.0;
             local healthThreshold       = ::modURUI.Mod.ModSettings.getSetting("OverlayHealthThreshold").getValue() / 100.0;
-            if (((this.m.HeadArmor >= armorThreshold) && (this.m.BodyArmor >= armorThreshold) && (this.m.Health >= healthThreshold))
-                || (skinCountsAsUnDamaged && this.m.Health == 1.0 && (this.m.HeadArmor + this.m.BodyArmor) == 0.0))
+            if (((this.m.HeadArmor >= armorThreshold) && (this.m.BodyArmor >= armorThreshold) && (this.m.Health >= healthThreshold))    // either all current values pass the thresholds
+                || (skinCountsAsUnDamaged && this.m.Health == 1.0 && (this.m.HeadArmor + this.m.BodyArmor) == 0.0))                     // or we have an enemy with "just skin"
             {
                 this.setVisible(false, _forceUpdate);
             }
@@ -307,9 +308,10 @@ this.custom_overlay_bars <- {
 // Async Features
     function reset()    // I call this at the onCombatStarted of all player entities
     {
-        this.m.IsForceDisplaying = 0;   // Somehow this is not being reduced correctly
+        this.m.IsForceDisplaying = 0;
     }
 
+    // Forces the overlay to be displayed for _visibleFor milliseconds.
     function forceDisplayOverlay(_visibleFor)
     {
         this.m.IsForceDisplaying++;
@@ -318,7 +320,7 @@ this.custom_overlay_bars <- {
 		::Time.scheduleEvent(::TimeUnit.Real, _visibleFor, this.decrementIsForceDisplaying.bindenv(this), {});
     }
 
-    function decrementIsForceDisplaying( _data )
+    function decrementIsForceDisplaying( _data )    // a scheduleEvent function is required to have one parameter even if I don't use it
     {
         if (this == null) return;
         this.m.IsForceDisplaying--;
@@ -341,7 +343,7 @@ this.custom_overlay_bars <- {
         ::Time.scheduleEvent(::TimeUnit.Real, 50, this.negateFade.bindenv(this), {});
     }
 
-    function asyncFullUIUpdate( _data ) // scheduleEvent requires the targeted function to have 1 parameter. Thats why I use this dummy function
+    function asyncFullUIUpdate( _data )         // a scheduleEvent function is required to have one parameter even if I don't use it
     {
         this.fullUIUpdate();
     }

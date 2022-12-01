@@ -14,6 +14,7 @@ Improves the responsiveness and usefulness of the item filters available in the 
 - Removes the delay when clicking an item filter
 - New option to hide all empty item slots
 - Item Filter also apply to the shop
+- Hotkeys for switching between Item Filters (1-5)
 - New third highlight options for blocked tiles with a unique higlight for objects blocking visibility
 
 ### Minor Changes
@@ -33,6 +34,7 @@ Improves the responsiveness and usefulness of the item filters available in the 
 
 - Should be safe to remove from- and add to any existing savegames
 - UI Mods that cover similar features will likely have conflicts with this mod
+- Legends and EIMO work fine with this mod
 
 ### Known Issues: ###
 
