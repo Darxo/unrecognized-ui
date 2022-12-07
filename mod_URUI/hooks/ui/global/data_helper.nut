@@ -26,4 +26,24 @@
         if (ret != null) ret.type <- _item.getItemType();
         return ret;
     }
+
+// Display max Fatigue/Initiative
+	local oldAddStatsToUIData = o.addStatsToUIData;
+	o.addStatsToUIData = function( _entity, _target )
+	{
+		::logWarning("addStatsToUIData");
+		oldAddStatsToUIData(_entity, _target);
+
+		local baseProperties = _entity.getBaseProperties();
+
+		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseInitiative").getValue()) _target.initiativeMax = baseProperties.getInitiative();
+
+		// We only change the displayed fatigue outside of combat. During combat that stat is not important
+		if (::MSU.Utils.hasState("tactical_state")) return;
+
+		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseFatigue").getValue() == false) return;
+		_target.fatigue = _target.fatigueMax;
+		_target.fatigueMax = baseProperties.Stamina;
+	}
+
 });

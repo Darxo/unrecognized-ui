@@ -119,6 +119,13 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 	page.addElement(myEnumSetting);
     page.addDivider("MiscDivider3");
 
+	// Fatigue/Initiative Attribute Display
+    local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
+	page.addElement(myBoolSetting);
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
+	page.addElement(myBoolSetting);
+    page.addDivider("MiscDivider4");
+
 	// Roster Warning Icon
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
 	myBoolSetting.addCallback(function (_newValue)

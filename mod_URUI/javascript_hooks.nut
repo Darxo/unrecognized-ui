@@ -31,3 +31,7 @@
 // World Screen Hooks for Summarized Mood Icon & Roster Warning Icon
 ::mods_registerJS("mod_URUI/screens/world/modules/world_screen_topbar/world_screen_topbar_options_module.js");
 
+// Stats-Module hook for displaying the base Initiative
+::mods_registerJS("mod_URUI/screens/character/modules/character_screen_left_panel/character_screen_stats_module.js");
+
+
