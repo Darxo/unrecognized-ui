@@ -95,6 +95,7 @@ WorldTownScreenShopDialogModule.prototype.loadFromData = function( _data )
     if (this.mCurrentFilter === undefined)  // We don't need to apply filtering on opening the shop for the actual very first time in this game
     {
         this.mCurrentFilter = _data.Filter1;
+        this.applyItemFilter(this.mCurrentFilter, true);    // improves inheritance of shop-module when first time opening them
     }
     else
     {
@@ -207,6 +208,23 @@ WorldTownScreenShopDialogModule.prototype.unbindTooltips = function ()
 	modURUI_WorldTownScreen_unbindTooltips.call(this);
 	this.mHideEmptySlotsButton.unbindTooltip();
 };
+
+var modURUI_WorldTownScreenShopDialogModule_show = WorldTownScreenShopDialogModule.prototype.show;
+WorldTownScreenShopDialogModule.prototype.show = function (_withSlideAnimation)
+{
+    // This module is usually able to remember this option image in between opening and closing
+    // But a mod may introduce a new module which inherits the behavior of the shop module. For that purpose we make sure that this button is updated
+    if (modURUI.SHOW_EMPTY_SLOTS_SHOP)
+    {
+        this.mHideEmptySlotsButton.changeButtonImage(Path.GFX + modURUI.BUTTON_SHOW_EMPTY_SLOTS);
+    }
+    else
+    {
+        this.mHideEmptySlotsButton.changeButtonImage(Path.GFX + modURUI.BUTTON_HIDE_EMPTY_SLOTS);
+    }
+	modURUI_WorldTownScreenShopDialogModule_show.call(this, _withSlideAnimation);
+};
+
 
 // Overwrites of the vanilla filter notifies. We redirect them to apply the filtering locally
 WorldTownScreenShopDialogModule.prototype.notifyBackendFilterAllButtonClicked = function ()
