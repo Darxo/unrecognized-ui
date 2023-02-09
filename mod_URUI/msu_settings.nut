@@ -3,70 +3,71 @@
 local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 
     // My class that applies all the option changes hooks into the setDirty function of the actor
-    local genericCallback = function(_newValue)
+    local genericCallback = function( _oldValue )
     {
         if (!::MSU.Utils.hasState("tactical_state")) return;    // At the start of any combat a 'fullUIUpdate' will be called anyways so we dont need to do that preemtively
-        local oldValue = this.Value
-        this.Value = _newValue;
-        local allEntities = this.Tactical.Entities.getAllInstancesAsArray()
+		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
+        local allEntities = this.Tactical.Entities.getAllInstancesAsArray();
         foreach(entity in allEntities)
         {
             entity.getCustomOverlayBars().fullUIUpdate();
         }
-        this.Value = oldValue;
     }
 
     // Default colors that should mimic the HP and Armor
     local helmetColor = "128,128,128,1.0";
     local chestColor = "128,128,128,1.0";
     local healthColor =  "255,0,0,1.0";
+    local helmetColor = "128,128,128,1.0";  // Grey
+    local chestColor = "128,128,128,1.0";   // Grey
+    local healthColor =  "255,0,0,1.0";     // Red
 
     // Color-Setings for Helmet, Chest, Allies and Enemies
     local helmetColorSetting = combatOverlayPage.addColorPickerSetting("HelmetBarColor", helmetColor, "Color of the Head Armour Bar");
-    helmetColorSetting.addCallback(genericCallback);
+    helmetColorSetting.addAfterChangeCallback(genericCallback);
     local chestColorSetting = combatOverlayPage.addColorPickerSetting("ChestBarColor", chestColor, "Color of the Body Armour Bar");
-    chestColorSetting.addCallback(genericCallback);
+    chestColorSetting.addAfterChangeCallback(genericCallback);
     local allyHealthColorSetting = combatOverlayPage.addColorPickerSetting("AllyHealthBarColor", healthColor, "Color of Ally Health Bar");
-    allyHealthColorSetting.addCallback(genericCallback);
+    allyHealthColorSetting.addAfterChangeCallback(genericCallback);
     local enemyHealthColorSetting = combatOverlayPage.addColorPickerSetting("EnemyHealthBarColor", healthColor, "Color of Enemy Health Bar");
-    enemyHealthColorSetting.addCallback(genericCallback);
+    enemyHealthColorSetting.addAfterChangeCallback(genericCallback);
 
     // Overlay Size
     local overlaySizeSetting = combatOverlayPage.addRangeSetting("OverlaySize", 100, 60, 300, 2, "Overlay Size", "The Overlay Bars and Icons are scaled to this value in percent. 100% is the vanilla size.");
-    overlaySizeSetting.addCallback(genericCallback);
+    overlaySizeSetting.addAfterChangeCallback(genericCallback);
 
     // Overlay Vertical Offset
     local verticalOffsetSetting = combatOverlayPage.addRangeSetting("VerticalOffset", 0, -60, 60, 2, "Vertical Offset", "Defines how high or low the Overlay Bars and Icons are drawn above the actor.");
-    verticalOffsetSetting.addCallback(genericCallback);
+    verticalOffsetSetting.addAfterChangeCallback(genericCallback);
 
     // Overlay Display Mode
-    local displayModeCallback = function(_newValue)
+    local displayModeCallback = function( _oldValue )
     {
         if (!::MSU.Utils.hasState("tactical_state")) return;
-        ::Tactical.State.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(_newValue);
-        genericCallback(_newValue);
+        ::Tactical.State.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(this.getValue());
+        genericCallback( _oldValue );
     }
     local myEnumBarSetting = combatOverlayPage.addEnumSetting("OverlayDisplayMode", ::modURUI.COB.OnlyWhileDamaged.Setting, [::modURUI.COB.OnlyWhileDamaged.Setting, ::modURUI.COB.NeverShow.Setting, ::modURUI.COB.AlwaysShow.Setting], "Overlay Display Mode", "Controls how and when the complete combat overlay on the entities during a battle are shown.");
-    myEnumBarSetting.addCallback(displayModeCallback);
+    myEnumBarSetting.addAfterChangeCallback(displayModeCallback);
 
     // Overlay Icon Alpha
     local iconAlphaSetting = combatOverlayPage.addRangeSetting("IconAlpha", 255, 0, 255, 3, "Icon Alpha", "Defines the Transparency of the Mini Icons");
-    iconAlphaSetting.addCallback(genericCallback);
+    iconAlphaSetting.addAfterChangeCallback(genericCallback);
 
     // Skin counts as Undamaged - Option
     local skinUnDamagedSetting = combatOverlayPage.addBooleanSetting("SkinCountsAsUnDamaged", true, "Skin counts as 'Full HP'", "An actor that has no armor but full health will be treated as 'Undamaged'. Otherwise enemies that naturally spawn with no armor (e.g. Ghouls) would always show their overlay.");
-    skinUnDamagedSetting.addCallback(genericCallback);
+    skinUnDamagedSetting.addAfterChangeCallback(genericCallback);
 
     // Force Display Duration
     combatOverlayPage.addRangeSetting("ForceDisplayDuration", 4.0, 0.0, 8.0, 0.5, "Hit Display Duration", "An actor that just took damage will display their overlay for this duration disregarding other settings.");
 
     // Damaged Armor Threshold
     local armorThresholdSetting = combatOverlayPage.addRangeSetting("OverlayArmorThreshold", 100, 0, 100, 2, "Damaged Armor Threshold", "An actor counts as 'damaged' when either Head- or Body Armor is below this percentage.");
-    armorThresholdSetting.addCallback(genericCallback);
+    armorThresholdSetting.addAfterChangeCallback(genericCallback);
 
     // Damaged Health Threshold
     local healthThresholdSetting = combatOverlayPage.addRangeSetting("OverlayHealthThreshold", 100, 20, 100, 2, "Damaged Health Threshold", "An actor counts as 'damaged' while their Health is below this percentage.");
-    healthThresholdSetting.addCallback(genericCallback);
+    healthThresholdSetting.addAfterChangeCallback(genericCallback);
 
 // Filter Page
 local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
@@ -95,15 +96,12 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 
 	// Summarized Mood Icon
 	local myEnumSetting = ::MSU.Class.EnumSetting("ShowMoodIcon", "Lowest Mood", ["Do not show", "Lowest Mood", "Average Mood"], "Show Mood Icon", "Displays a single mood icon on top of the roster button that summarizes the mood of all your brothers.");
-	myEnumSetting.addCallback(function (_newValue)
+	myEnumSetting.addAfterChangeCallback(function (_oldValue)
 	{
 		if (::MSU.Utils.getActiveState() == null) return;
 		if (::MSU.Utils.getActiveState().ClassName == "main_menu_state") return;	// otherwise the game crashes when changing settings in main menu
-		if (this.Value == _newValue) return;
-		local oldValue = this.Value
-		this.Value = _newValue;
+		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
 		::World.State.updateTopbarAssets();
-		this.Value = oldValue;
 	});
 	page.addElement(myEnumSetting);
     page.addDivider("MiscDivider2");
@@ -128,15 +126,12 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 
 	// Roster Warning Icon
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
-	myBoolSetting.addCallback(function (_newValue)
+	myBoolSetting.addAfterChangeCallback(function (_oldValue)
 	{
 		if (::MSU.Utils.getActiveState() == null) return;
 		if (::MSU.Utils.getActiveState().ClassName == "main_menu_state") return;	// otherwise the game crashes when changing settings in main menu
-		if (this.Value == _newValue) return;
-		local oldValue = this.Value
-		this.Value = _newValue;
+		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
 		::modURUI.forceUpdate();
-		this.Value = oldValue;
 	});
 	page.addElement(myBoolSetting);
 

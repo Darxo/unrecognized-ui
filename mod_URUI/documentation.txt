@@ -45,6 +45,9 @@ Improves the responsiveness and usefulness of the item filters available in the 
 
 ### Future Plans: ###
 
+- amount of days you can pay for shown behind current crowns when below certain threshold
+- bigger console log (like legends) ?
+- shrink stats-section of character screen to make space for more skills/effects. e.g. by squishing headshots/vision. And removing Morale out of combat.
 - Implement the vanilla feature of highlighting the portion of life that was just lost
 - Remember itemfilter for differen shops
 - add a forceDisplayOverlay call when new Icons/Effects were applied to a character (e.g. negative on allies and positive on enemies)

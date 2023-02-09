@@ -8,7 +8,7 @@
 
 ::mods_registerMod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 
-::mods_queue(::modURUI.ID, "mod_msu", function()
+::mods_queue(::modURUI.ID, "mod_msu(>=1.2.0-rc.2)", function()
 {
 	::modURUI.Mod <- ::MSU.Class.Mod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 

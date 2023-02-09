@@ -102,10 +102,10 @@ this.custom_overlay_bars <- {
     function fullUIUpdate()
     {
         if (this.m.Actor.isPlacedOnMap() == false) return;
-        this.m.HelmetColor = ::createColor(::modURUI.GetValueAsHexString(::modURUI.Mod.ModSettings.getSetting("ChestBarColor").getValue()));
-        this.m.ChestColor = ::createColor(::modURUI.GetValueAsHexString(::modURUI.Mod.ModSettings.getSetting("HelmetBarColor").getValue()));
-        this.m.AllyHealthColor = ::createColor(::modURUI.GetValueAsHexString(::modURUI.Mod.ModSettings.getSetting("AllyHealthBarColor").getValue()));
-        this.m.EnemyHealthColor = ::createColor(::modURUI.GetValueAsHexString(::modURUI.Mod.ModSettings.getSetting("EnemyHealthBarColor").getValue()));
+        this.m.HelmetColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("ChestBarColor").getValueAsHexString());
+        this.m.ChestColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("HelmetBarColor").getValueAsHexString());
+        this.m.AllyHealthColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("AllyHealthBarColor").getValueAsHexString());
+        this.m.EnemyHealthColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("EnemyHealthBarColor").getValueAsHexString());
 
         local newScale = ::modURUI.Mod.ModSettings.getSetting("OverlaySize").getValue();
         this.m.CurrentVerticalOffset = ::modURUI.Mod.ModSettings.getSetting("VerticalOffset").getValue();
@@ -140,7 +140,7 @@ this.custom_overlay_bars <- {
         this.forceDisplayOverlay(forceDisplayDuration * 1000);
     }
 
-    // Decides whether the Overlay should is visible
+    // Decides whether the Overlay should be visible
     function checkVisibility( _forceUpdate = false )
     {
         if (this.m.IsForceDisplaying != 0)
@@ -181,8 +181,8 @@ this.custom_overlay_bars <- {
     function updateColors()
     {
         if (this.m.HelmetColor == null) return;     // Simple check to prevent assigning null as colors when a fullUIUpdate hasnt happened yet
-        this.m.ChestBar.Color = this.m.HelmetColor;
-        this.m.HelmetBar.Color = this.m.ChestColor;
+        this.m.ChestBar.Color = this.m.ChestColor;
+        this.m.HelmetBar.Color = this.m.HelmetColor;
 
         if (this.m.Actor.isAlliedWithPlayer())
         {

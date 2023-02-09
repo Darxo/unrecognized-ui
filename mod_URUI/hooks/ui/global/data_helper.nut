@@ -31,7 +31,6 @@
 	local oldAddStatsToUIData = o.addStatsToUIData;
 	o.addStatsToUIData = function( _entity, _target )
 	{
-		::logWarning("addStatsToUIData");
 		oldAddStatsToUIData(_entity, _target);
 
 		local baseProperties = _entity.getBaseProperties();
