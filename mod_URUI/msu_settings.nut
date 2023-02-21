@@ -15,14 +15,14 @@ local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
     }
 
     // Default colors that should mimic the HP and Armor
-    local helmetColor = "128,128,128,1.0";
-    local chestColor = "128,128,128,1.0";
-    local healthColor =  "255,0,0,1.0";
+    local shieldColor = "204,102,0,1.0";    // Orange/Brown
     local helmetColor = "128,128,128,1.0";  // Grey
     local chestColor = "128,128,128,1.0";   // Grey
     local healthColor =  "255,0,0,1.0";     // Red
 
     // Color-Setings for Helmet, Chest, Allies and Enemies
+    local shieldColorSetting = combatOverlayPage.addColorPickerSetting("ShieldBarColor", shieldColor, "Color of the Shield Bar");
+    shieldColorSetting.addAfterChangeCallback(genericCallback);
     local helmetColorSetting = combatOverlayPage.addColorPickerSetting("HelmetBarColor", helmetColor, "Color of the Head Armour Bar");
     helmetColorSetting.addAfterChangeCallback(genericCallback);
     local chestColorSetting = combatOverlayPage.addColorPickerSetting("ChestBarColor", chestColor, "Color of the Body Armour Bar");

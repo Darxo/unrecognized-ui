@@ -3,6 +3,7 @@ this.custom_overlay_bars <- {
 	m = {
     // Set during init
         Actor = null,               // Actor object that this overlay is attached to
+        ShieldBar = null,           // shield durability bar sprite
         HelmetBar = null,           // helmet armor bar sprite
         ChestBar = null,            // chest armor bar sprite
         HitpointBar = null,         // hitpoints bar sprite
@@ -17,6 +18,7 @@ this.custom_overlay_bars <- {
         IsVisible = false,          // An overlay that is invisible ignores most updates to save performance
         DisplayedMiniIcons = 0,     // amount of miniIcons that are currently displayed
         // Colors are saved here so they don't need to be read out of the mod settings every time is applied. Because changing the brush/bar length removes the old color
+        ShieldColor = null,
         HelmetColor = null,
         ChestColor = null,
         AllyHealthColor = null,
@@ -72,6 +74,10 @@ this.custom_overlay_bars <- {
         this.m.BackgroundBars.Alpha = this.m.BackgroundBarAlpha;
         _actor.setSpriteRenderToTexture("MDN_BackgroundBars", false);
 
+        this.m.ShieldBar = _actor.addSprite("MDN_ShieldBar");
+        this.m.ShieldBar.setBrush("MDN_entityoverlay_bar_24");
+        _actor.setSpriteRenderToTexture("MDN_ShieldBar", false);
+
         this.m.HelmetBar = _actor.addSprite("MDN_HelmetBar");
         this.m.HelmetBar.setBrush("MDN_entityoverlay_bar_24");
         _actor.setSpriteRenderToTexture("MDN_HelmetBar", false);
@@ -102,6 +108,7 @@ this.custom_overlay_bars <- {
     function fullUIUpdate()
     {
         if (this.m.Actor.isPlacedOnMap() == false) return;
+        this.m.ShieldColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("ShieldBarColor").getValueAsHexString());
         this.m.HelmetColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("ChestBarColor").getValueAsHexString());
         this.m.ChestColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("HelmetBarColor").getValueAsHexString());
         this.m.AllyHealthColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("AllyHealthBarColor").getValueAsHexString());
@@ -125,6 +132,7 @@ this.custom_overlay_bars <- {
         this.m.BodyArmor = _bodyArmor;
         this.m.Health = _hitpoints;
 
+        this.m.ShieldBar.setBrush(this.translateToBar(this.getShieldDurability()));
         this.m.HelmetBar.setBrush(this.translateToBar(_headArmor));
         this.m.ChestBar.setBrush(this.translateToBar(_bodyArmor));
         this.m.HitpointBar.setBrush(this.translateToBar(_hitpoints));
@@ -181,6 +189,7 @@ this.custom_overlay_bars <- {
     function updateColors()
     {
         if (this.m.HelmetColor == null) return;     // Simple check to prevent assigning null as colors when a fullUIUpdate hasnt happened yet
+        this.m.ShieldBar.Color = this.m.ShieldColor;
         this.m.ChestBar.Color = this.m.ChestColor;
         this.m.HelmetBar.Color = this.m.HelmetColor;
 
@@ -203,6 +212,7 @@ this.custom_overlay_bars <- {
 
     function setOverlayBarVisibility(_visible)
     {
+        this.m.ShieldBar.Visible = _visible;
         this.m.HelmetBar.Visible = _visible;
         this.m.ChestBar.Visible = _visible;
         this.m.HitpointBar.Visible = _visible;
@@ -230,9 +240,14 @@ this.custom_overlay_bars <- {
     function updateOverlayBarPositions()
     {
         local vectorPosition = ::createVec(0, this.m.BarsStartingHeight + this.m.CurrentVerticalOffset);
-        this.m.HelmetBar.setOffset(vectorPosition);
-        this.m.ChestBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y - 7));
-        this.m.HitpointBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y - 14));
+        local yOffset = 0;
+        this.m.ShieldBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y + yOffset));
+        yOffset -= 7;
+        this.m.HelmetBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y + yOffset));
+        yOffset -= 7;
+        this.m.ChestBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y + yOffset));
+        yOffset -= 7;
+        this.m.HitpointBar.setOffset(::createVec(vectorPosition.X, vectorPosition.Y + yOffset));
     }
 
     function updateOverlayIconPositions()
@@ -283,6 +298,7 @@ this.custom_overlay_bars <- {
     function scaleOverlay( _size )
     {
         this.m.BackgroundBars.Scale = _size;
+        this.m.ShieldBar.Scale = _size;
         this.m.HelmetBar.Scale = _size;
         this.m.ChestBar.Scale = _size;
         this.m.HitpointBar.Scale = _size;
@@ -303,6 +319,14 @@ this.custom_overlay_bars <- {
         if (this.m.IsVisible == _visible && _forceUpdate == false) return;      // To save performance
         this.m.IsVisible = _visible;
         this.updateVisibility();
+    }
+
+    // Returns a value between 0.0 and 1.0 representing the condition of the equipped shield
+    function getShieldDurability()
+    {
+        local offhandItem = this.m.Actor.getItems().getItemAtSlot(::Const.ItemSlot.Offhand);
+        if (offhandItem == null || offhandItem.isItemType(::Const.Items.ItemType.Shield) == false) return 0.0;
+        return (offhandItem.getCondition() / offhandItem.getConditionMax());
     }
 
 // Async Features
