@@ -35,7 +35,7 @@ WorldTownScreenShopDialogModule.prototype.createDIV = function (_parentDiv)
 
     if (this.mCurrentFilter !== undefined && MSU.getSettingValue("mod_URUI", "ResetItemFilterShop") === true)
     {
-        this.mCurrentFilter = _data.Filter1;
+        this.mCurrentFilter = this.Filter1;
     }
 
     // Item Filter Hotkeys
