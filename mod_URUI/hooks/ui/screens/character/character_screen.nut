@@ -1,4 +1,4 @@
-::mods_hookNewObjectOnce("ui/screens/character/character_screen", function(o)
+::mods_hookNewObject("ui/screens/character/character_screen", function(o)
 {
 // Useful Item Filter
     local oldQueryData = o.queryData;
