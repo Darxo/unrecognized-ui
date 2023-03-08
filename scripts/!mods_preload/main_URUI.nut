@@ -1,14 +1,14 @@
 ::modURUI <- {
 	ID = "mod_URUI",
 	Name = "Unrecognized UI",
-	Version = "1.0.1",
+	Version = "1.1.0",
 	Const = {},
 	Class = {}
 }
 
 ::mods_registerMod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 
-::mods_queue(::modURUI.ID, "mod_msu(>=1.2.0-rc.2)", function()
+::mods_queue(::modURUI.ID, "mod_msu(>=1.2.0)", function()
 {
 	::modURUI.Mod <- ::MSU.Class.Mod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 

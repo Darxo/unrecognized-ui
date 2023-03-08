@@ -16,6 +16,7 @@ Improves the responsiveness and usefulness of the item filters available in the 
 - Item Filter also apply to the shop
 - Hotkeys for switching between Item Filters (1-5)
 - New third highlight options for blocked tiles with a unique higlight for objects blocking visibility
+- New options to display the base fatigue/initiative outside of battle
 
 ### Minor Changes
 
@@ -28,7 +29,7 @@ Improves the responsiveness and usefulness of the item filters available in the 
 ### Requirements ###
 
 - Modding Script Hooks
-- Modding Standards and Utilities (MSU)
+- Modding Standards and Utilities (1.2.0+)
 
 ### Compatibility
 
@@ -58,6 +59,13 @@ Improves the responsiveness and usefulness of the item filters available in the 
 - Display the spaceUsed and spaceMax depending on the current filter setting
 
 ### Changes: ###
+
+1.1.0
+    - now requires MSU 1.2.0+
+    - new options for displaying base fatigue and base initiative outside of combat
+    - 'show empty slots' now affects the shops aswell
+    - replaces two instances of 'mods_hookNewObjectOnce' with 'mods_hookNewObject' to fix potential crashes and issues during longer playsessions
+    - slightly improved compatibility with mods which inherit from the shop dialog module
 
 1.0.1
     - fixes the missing tooltips for the overlay stats toggle button
