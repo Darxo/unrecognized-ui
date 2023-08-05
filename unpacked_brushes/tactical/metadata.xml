@@ -1,0 +1,56 @@
+<brush name="gfx/modded_bars.png" version="17" b1="2" b5="0">
+  <sprite id="zone_target_overlay_eye" offsetY="3" img="modded\zone_target_overlay_eye.png" />
+
+  <sprite id="MDN_entityoverlay_bar_1" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_1.png" left="-48" right="-44" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_2" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_2.png" left="-48" right="-40" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_3" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_3.png" left="-48" right="-36" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_4" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_4.png" left="-48" right="-32" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_5" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_5.png" left="-48" right="-28" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_6" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_6.png" left="-48" right="-24" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_7" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_7.png" left="-48" right="-20" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_8" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_8.png" left="-48" right="-16" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_9" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_9.png" left="-48" right="-12" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_10" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_10.png" left="-48" right="-8" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_11" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_11.png" left="-48" right="-4" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_12" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_12.png" left="-48" right="0" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bottom" offsetY="35" ic="FF000000" width="120" height="40" img="modded\entityoverlay_bottom.png" />
+  <sprite id="MDN_entityoverlay_bar_13" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_13.png" left="-48" right="4" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_14" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_14.png" left="-48" right="8" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_15" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_15.png" left="-48" right="12" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_16" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_16.png" left="-48" right="16" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_17" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_17.png" left="-48" right="20" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_18" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_18.png" left="-48" right="24" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_19" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_19.png" left="-48" right="28" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_20" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_20.png" left="-48" right="32" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_21" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_21.png" left="-48" right="36" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_22" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_22.png" left="-48" right="40" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_23" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_23.png" left="-48" right="44" top="5" bottom="9" />
+  <sprite id="MDN_entityoverlay_bar_24" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="modded\entityoverlay_bar_24.png" top="5" bottom="9" />
+  
+  <sprite id="entityoverlay_bar_1" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_1.png" left="-48" right="-44" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_2" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_2.png" left="-48" right="-40" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_3" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_3.png" left="-48" right="-36" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_4" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_4.png" left="-48" right="-32" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_5" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_5.png" left="-48" right="-28" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_6" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_6.png" left="-48" right="-24" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_7" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_7.png" left="-48" right="-20" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_8" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_8.png" left="-48" right="-16" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_9" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_9.png" left="-48" right="-12" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_10" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_10.png" left="-48" right="-8" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_11" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_11.png" left="-48" right="-4" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_12" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_12.png" left="-48" right="0" top="5" bottom="9" />
+  <sprite id="entityoverlay_bottom" offsetY="35" ic="FF000000" width="120" height="40" img="vanilla\entityoverlay_bottom.png" />
+  <sprite id="entityoverlay_top" offsetY="35" ic="FF51547A" width="120" height="40" img="vanilla\entityoverlay_top.png" left="-56" right="58" top="-15" bottom="17" />
+  <sprite id="entityoverlay_bar_13" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_13.png" left="-48" right="4" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_14" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_14.png" left="-48" right="8" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_15" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_15.png" left="-48" right="12" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_16" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_16.png" left="-48" right="16" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_17" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_17.png" left="-48" right="20" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_18" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_18.png" left="-48" right="24" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_19" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_19.png" left="-48" right="28" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_20" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_20.png" left="-48" right="32" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_21" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_21.png" left="-48" right="36" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_22" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_22.png" left="-48" right="40" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_23" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_23.png" left="-48" right="44" top="5" bottom="9" />
+  <sprite id="entityoverlay_bar_24" offsetY="35" ic="FFFFFFFF" width="120" height="40" img="vanilla\entityoverlay_bar_24.png" top="5" bottom="9" />
+</brush>
