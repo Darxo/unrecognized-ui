@@ -2,97 +2,97 @@
 // Combat Overlay Setting Page
 local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 
-    // My class that applies all the option changes hooks into the setDirty function of the actor
-    local genericCallback = function( _oldValue )
-    {
-        if (!::MSU.Utils.hasState("tactical_state")) return;    // At the start of any combat a 'fullUIUpdate' will be called anyways so we dont need to do that preemtively
+	// My class that applies all the option changes hooks into the setDirty function of the actor
+	local genericCallback = function( _oldValue )
+	{
+		if (!::MSU.Utils.hasState("tactical_state")) return;    // At the start of any combat a 'fullUIUpdate' will be called anyways so we dont need to do that preemtively
 		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
-        local allEntities = this.Tactical.Entities.getAllInstancesAsArray();
-        foreach(entity in allEntities)
-        {
-            entity.getCustomOverlayBars().fullUIUpdate();
-        }
-    }
+		local allEntities = this.Tactical.Entities.getAllInstancesAsArray();
+		foreach(entity in allEntities)
+		{
+			entity.getCustomOverlayBars().fullUIUpdate();
+		}
+	}
 
-    // Default colors that should mimic the HP and Armor
-    local helmetColor = "128,128,128,1.0";
-    local chestColor = "128,128,128,1.0";
-    local healthColor =  "255,0,0,1.0";
-    local helmetColor = "128,128,128,1.0";  // Grey
-    local chestColor = "128,128,128,1.0";   // Grey
-    local healthColor =  "255,0,0,1.0";     // Red
+	// Default colors that should mimic the HP and Armor
+	local helmetColor = "128,128,128,1.0";
+	local chestColor = "128,128,128,1.0";
+	local healthColor =  "255,0,0,1.0";
+	local helmetColor = "128,128,128,1.0";  // Grey
+	local chestColor = "128,128,128,1.0";   // Grey
+	local healthColor =  "255,0,0,1.0";     // Red
 
-    // Color-Setings for Helmet, Chest, Allies and Enemies
-    local helmetColorSetting = combatOverlayPage.addColorPickerSetting("HelmetBarColor", helmetColor, "Color of the Head Armour Bar");
-    helmetColorSetting.addAfterChangeCallback(genericCallback);
-    local chestColorSetting = combatOverlayPage.addColorPickerSetting("ChestBarColor", chestColor, "Color of the Body Armour Bar");
-    chestColorSetting.addAfterChangeCallback(genericCallback);
-    local allyHealthColorSetting = combatOverlayPage.addColorPickerSetting("AllyHealthBarColor", healthColor, "Color of Ally Health Bar");
-    allyHealthColorSetting.addAfterChangeCallback(genericCallback);
-    local enemyHealthColorSetting = combatOverlayPage.addColorPickerSetting("EnemyHealthBarColor", healthColor, "Color of Enemy Health Bar");
-    enemyHealthColorSetting.addAfterChangeCallback(genericCallback);
+	// Color-Setings for Helmet, Chest, Allies and Enemies
+	local helmetColorSetting = combatOverlayPage.addColorPickerSetting("HelmetBarColor", helmetColor, "Color of the Head Armour Bar");
+	helmetColorSetting.addAfterChangeCallback(genericCallback);
+	local chestColorSetting = combatOverlayPage.addColorPickerSetting("ChestBarColor", chestColor, "Color of the Body Armour Bar");
+	chestColorSetting.addAfterChangeCallback(genericCallback);
+	local allyHealthColorSetting = combatOverlayPage.addColorPickerSetting("AllyHealthBarColor", healthColor, "Color of Ally Health Bar");
+	allyHealthColorSetting.addAfterChangeCallback(genericCallback);
+	local enemyHealthColorSetting = combatOverlayPage.addColorPickerSetting("EnemyHealthBarColor", healthColor, "Color of Enemy Health Bar");
+	enemyHealthColorSetting.addAfterChangeCallback(genericCallback);
 
-    // Overlay Size
-    local overlaySizeSetting = combatOverlayPage.addRangeSetting("OverlaySize", 100, 60, 300, 2, "Overlay Size", "The Overlay Bars and Icons are scaled to this value in percent. 100% is the vanilla size.");
-    overlaySizeSetting.addAfterChangeCallback(genericCallback);
+	// Overlay Size
+	local overlaySizeSetting = combatOverlayPage.addRangeSetting("OverlaySize", 100, 60, 300, 2, "Overlay Size", "The Overlay Bars and Icons are scaled to this value in percent. 100% is the vanilla size.");
+	overlaySizeSetting.addAfterChangeCallback(genericCallback);
 
-    // Overlay Vertical Offset
-    local verticalOffsetSetting = combatOverlayPage.addRangeSetting("VerticalOffset", 0, -60, 60, 2, "Vertical Offset", "Defines how high or low the Overlay Bars and Icons are drawn above the actor.");
-    verticalOffsetSetting.addAfterChangeCallback(genericCallback);
+	// Overlay Vertical Offset
+	local verticalOffsetSetting = combatOverlayPage.addRangeSetting("VerticalOffset", 0, -60, 60, 2, "Vertical Offset", "Defines how high or low the Overlay Bars and Icons are drawn above the actor.");
+	verticalOffsetSetting.addAfterChangeCallback(genericCallback);
 
-    // Overlay Display Mode
-    local displayModeCallback = function( _oldValue )
-    {
-        if (!::MSU.Utils.hasState("tactical_state")) return;
-        ::Tactical.State.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(this.getValue());
-        genericCallback( _oldValue );
-    }
-    local myEnumBarSetting = combatOverlayPage.addEnumSetting("OverlayDisplayMode", ::modURUI.COB.OnlyWhileDamaged.Setting, [::modURUI.COB.OnlyWhileDamaged.Setting, ::modURUI.COB.NeverShow.Setting, ::modURUI.COB.AlwaysShow.Setting], "Overlay Display Mode", "Controls how and when the complete combat overlay on the entities during a battle are shown.");
-    myEnumBarSetting.addAfterChangeCallback(displayModeCallback);
+	// Overlay Display Mode
+	local displayModeCallback = function( _oldValue )
+	{
+		if (!::MSU.Utils.hasState("tactical_state")) return;
+		::Tactical.State.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(this.getValue());
+		genericCallback( _oldValue );
+	}
+	local myEnumBarSetting = combatOverlayPage.addEnumSetting("OverlayDisplayMode", ::modURUI.COB.OnlyWhileDamaged.Setting, [::modURUI.COB.OnlyWhileDamaged.Setting, ::modURUI.COB.NeverShow.Setting, ::modURUI.COB.AlwaysShow.Setting], "Overlay Display Mode", "Controls how and when the complete combat overlay on the entities during a battle are shown.");
+	myEnumBarSetting.addAfterChangeCallback(displayModeCallback);
 
-    // Overlay Icon Alpha
-    local iconAlphaSetting = combatOverlayPage.addRangeSetting("IconAlpha", 255, 0, 255, 3, "Icon Alpha", "Defines the Transparency of the Mini Icons");
-    iconAlphaSetting.addAfterChangeCallback(genericCallback);
+	// Overlay Icon Alpha
+	local iconAlphaSetting = combatOverlayPage.addRangeSetting("IconAlpha", 255, 0, 255, 3, "Icon Alpha", "Defines the Transparency of the Mini Icons");
+	iconAlphaSetting.addAfterChangeCallback(genericCallback);
 
-    // Skin counts as Undamaged - Option
-    local skinUnDamagedSetting = combatOverlayPage.addBooleanSetting("SkinCountsAsUnDamaged", true, "Skin counts as 'Full HP'", "An actor that has no armor but full health will be treated as 'Undamaged'. Otherwise enemies that naturally spawn with no armor (e.g. Ghouls) would always show their overlay.");
-    skinUnDamagedSetting.addAfterChangeCallback(genericCallback);
+	// Skin counts as Undamaged - Option
+	local skinUnDamagedSetting = combatOverlayPage.addBooleanSetting("SkinCountsAsUnDamaged", true, "Skin counts as 'Full HP'", "An actor that has no armor but full health will be treated as 'Undamaged'. Otherwise enemies that naturally spawn with no armor (e.g. Ghouls) would always show their overlay.");
+	skinUnDamagedSetting.addAfterChangeCallback(genericCallback);
 
-    // Force Display Duration
-    combatOverlayPage.addRangeSetting("ForceDisplayDuration", 4.0, 0.0, 8.0, 0.5, "Hit Display Duration", "An actor that just took damage will display their overlay for this duration disregarding other settings.");
+	// Force Display Duration
+	combatOverlayPage.addRangeSetting("ForceDisplayDuration", 4.0, 0.0, 8.0, 0.5, "Hit Display Duration", "An actor that just took damage will display their overlay for this duration disregarding other settings.");
 
-    // Damaged Armor Threshold
-    local armorThresholdSetting = combatOverlayPage.addRangeSetting("OverlayArmorThreshold", 100, 0, 100, 2, "Damaged Armor Threshold", "An actor counts as 'damaged' when either Head- or Body Armor is below this percentage.");
-    armorThresholdSetting.addAfterChangeCallback(genericCallback);
+	// Damaged Armor Threshold
+	local armorThresholdSetting = combatOverlayPage.addRangeSetting("OverlayArmorThreshold", 100, 0, 100, 2, "Damaged Armor Threshold", "An actor counts as 'damaged' when either Head- or Body Armor is below this percentage.");
+	armorThresholdSetting.addAfterChangeCallback(genericCallback);
 
-    // Damaged Health Threshold
-    local healthThresholdSetting = combatOverlayPage.addRangeSetting("OverlayHealthThreshold", 100, 20, 100, 2, "Damaged Health Threshold", "An actor counts as 'damaged' while their Health is below this percentage.");
-    healthThresholdSetting.addAfterChangeCallback(genericCallback);
+	// Damaged Health Threshold
+	local healthThresholdSetting = combatOverlayPage.addRangeSetting("OverlayHealthThreshold", 100, 20, 100, 2, "Damaged Health Threshold", "An actor counts as 'damaged' while their Health is below this percentage.");
+	healthThresholdSetting.addAfterChangeCallback(genericCallback);
 
 // Filter Page
 local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 
-    // Useful Item Filter
-    local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterShop", true , "Reset Item Filter (Shop)", "Entering a Shop will always reset the Item Filter back to 'All'");
-    page.addElement(myBoolSetting);
+	// Useful Item Filter
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterShop", true , "Reset Item Filter (Shop)", "Entering a Shop will always reset the Item Filter back to 'All'");
+	page.addElement(myBoolSetting);
 
-    local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterCharacter", false , "Reset Item Filter (Char-Screen)", "Opening your character screen will always reset the Item Filter back to 'All'");
-    page.addElement(myBoolSetting);
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterCharacter", false , "Reset Item Filter (Char-Screen)", "Opening your character screen will always reset the Item Filter back to 'All'");
+	page.addElement(myBoolSetting);
 
-    local myBoolSetting = ::MSU.Class.BooleanSetting( "ApplyItemFilterToShops", true , "Filter Shop Items", "Inventories of Shops are affected by the current Item Filter");
-    page.addElement(myBoolSetting);
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "ApplyItemFilterToShops", true , "Filter Shop Items", "Inventories of Shops are affected by the current Item Filter");
+	page.addElement(myBoolSetting);
 
 
 // Misc Page
 local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 
-    // Custom Thresholds for the old HP Icon and the new Armor Icon
-    page.addRangeSetting("HPThreshold", 80, 0, 100, 5, "Hitpoint Threshold", "The hitpoint symbol will only be shown if the current health is below this threshold.");
-    page.addRangeSetting("ArmorThreshold", 80, 0, 100, 5, "Armor Threshold", "The armor symbol will only be shown if either the current head- or body armor is below this threshold.");
+	// Custom Thresholds for the old HP Icon and the new Armor Icon
+	page.addRangeSetting("HPThreshold", 80, 0, 100, 5, "Hitpoint Threshold", "The hitpoint symbol will only be shown if the current health is below this threshold.");
+	page.addRangeSetting("ArmorThreshold", 80, 0, 100, 5, "Armor Threshold", "The armor symbol will only be shown if either the current head- or body armor is below this threshold.");
 
-    // Should a missing armor spawn an Icon?
-    page.addBooleanSetting( "NotifyMissingPieces", true , "Notify on Missing Armor", "A brother who is not wearing a helmet or body armour will show the 'Missing-Armor-Symbol'");
-    page.addDivider("MiscDivider1");
+	// Should a missing armor spawn an Icon?
+	page.addBooleanSetting( "NotifyMissingPieces", true , "Notify on Missing Armor", "A brother who is not wearing a helmet or body armour will show the 'Missing-Armor-Symbol'");
+	page.addDivider("MiscDivider1");
 
 	// Summarized Mood Icon
 	local myEnumSetting = ::MSU.Class.EnumSetting("ShowMoodIcon", "Lowest Mood", ["Do not show", "Lowest Mood", "Average Mood"], "Show Mood Icon", "Displays a single mood icon on top of the roster button that summarizes the mood of all your brothers.");
@@ -104,25 +104,25 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 		::World.State.updateTopbarAssets();
 	});
 	page.addElement(myEnumSetting);
-    page.addDivider("MiscDivider2");
+	page.addDivider("MiscDivider2");
 
 	// Blocked Tiles Setting
 	local myEnumSetting = ::MSU.Class.EnumSetting(
-        "BlockedTilesOptions",
-        ::modURUI.HBT.HighlightOption.Both,
-        [::modURUI.HBT.HighlightOption.Both, ::modURUI.HBT.HighlightOption.Custom, ::modURUI.HBT.HighlightOption.Vanilla],
-        "Highlight Options for Blocked Tiles",
-        "Control which highlight modes for blocked tiles should be available. Choosing a specific mode improves the toggling during battle."
-    );
+		"BlockedTilesOptions",
+		::modURUI.HBT.HighlightOption.Both,
+		[::modURUI.HBT.HighlightOption.Both, ::modURUI.HBT.HighlightOption.Custom, ::modURUI.HBT.HighlightOption.Vanilla],
+		"Highlight Options for Blocked Tiles",
+		"Control which highlight modes for blocked tiles should be available. Choosing a specific mode improves the toggling during battle."
+	);
 	page.addElement(myEnumSetting);
-    page.addDivider("MiscDivider3");
+	page.addDivider("MiscDivider3");
 
 	// Fatigue/Initiative Attribute Display
-    local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
 	page.addElement(myBoolSetting);
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
 	page.addElement(myBoolSetting);
-    page.addDivider("MiscDivider4");
+	page.addDivider("MiscDivider4");
 
 	// Roster Warning Icon
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
@@ -136,10 +136,10 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 	page.addElement(myBoolSetting);
 
 // MSU Keybinds
-    // Useful Item Filter
-    ::modURUI.Mod.Keybinds.addJSKeybind("Filter1", "1", "Itemfilter - All", "Changes the current Filter to 'All' when pressed in the Inventory- or Shop Screen");
-    ::modURUI.Mod.Keybinds.addDivider("FilterDivider");
-    ::modURUI.Mod.Keybinds.addJSKeybind("Filter2", "2", "Itemfilter - Weapons", "Changes the current Filter to 'Weapons' when pressed in the Inventory- or Shop Screen");
-    ::modURUI.Mod.Keybinds.addJSKeybind("Filter3", "3", "Itemfilter - Armor", "Changes the current Filter to 'Armor' when pressed in the Inventory- or Shop Screen");
-    ::modURUI.Mod.Keybinds.addJSKeybind("Filter4", "4", "Itemfilter - Usable", "Changes the current Filter to 'Usable' when pressed in the Inventory- or Shop Screen");
-    ::modURUI.Mod.Keybinds.addJSKeybind("Filter5", "5", "Itemfilter - Misc", "Changes the current Filter to 'Misc' when pressed in the Inventory- or Shop Screen");
+	// Useful Item Filter
+	::modURUI.Mod.Keybinds.addJSKeybind("Filter1", "1", "Itemfilter - All", "Changes the current Filter to 'All' when pressed in the Inventory- or Shop Screen");
+	::modURUI.Mod.Keybinds.addDivider("FilterDivider");
+	::modURUI.Mod.Keybinds.addJSKeybind("Filter2", "2", "Itemfilter - Weapons", "Changes the current Filter to 'Weapons' when pressed in the Inventory- or Shop Screen");
+	::modURUI.Mod.Keybinds.addJSKeybind("Filter3", "3", "Itemfilter - Armor", "Changes the current Filter to 'Armor' when pressed in the Inventory- or Shop Screen");
+	::modURUI.Mod.Keybinds.addJSKeybind("Filter4", "4", "Itemfilter - Usable", "Changes the current Filter to 'Usable' when pressed in the Inventory- or Shop Screen");
+	::modURUI.Mod.Keybinds.addJSKeybind("Filter5", "5", "Itemfilter - Misc", "Changes the current Filter to 'Misc' when pressed in the Inventory- or Shop Screen");
