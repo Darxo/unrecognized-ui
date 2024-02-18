@@ -1,10 +1,8 @@
-::mods_hookNewObject("ui/screens/character/character_screen", function(o)
-{
+::modURUI.HooksMod.hook("scripts/ui/screens/character/character_screen", function(q) {
 // Useful Item Filter
-	local oldQueryData = o.queryData;
-	o.queryData = function()
+	q.queryData = @(__original) function()
 	{
-		local ret = oldQueryData();
+		local ret = __original();
 
 		::modURUI.RWI.calculateWarnings();
 		ret.FormationWarning <- (::modURUI.RWI.FormationWarning && ::modURUI.Mod.ModSettings.getSetting("ShowRosterWarning").getValue());
@@ -24,22 +22,22 @@
 		return ret;
 	}
 
-// Roster Warning Icon
-	o.setWarning <- function(_warningActive)
+// Summarized Mood Icon
+	// Hooks so that the summarized MoodIcon is updated whenever there was any brother is dismissed
+	q.onDismissCharacter = @(__original) function( _data )
+	{
+		__original(_data);
+		::World.State.updateTopbarAssets();
+	}
+
+// New Functions
+	// Roster Warning Icon
+	q.setWarning <- function(_warningActive)
 	{
 		if (this.m.JSDataSourceHandle != null)
 		{
 			local rosterSize = ("State" in ::World) && ::World.State != null ? ::World.Assets.getBrothersMaxInCombat() : 12;
 			this.m.JSDataSourceHandle.asyncCall("setWarning", [_warningActive, rosterSize]);
 		}
-	}
-
-// Summarized Mood Icon
-	// Hooks so that the summarized MoodIcon is updated whenever there was any brother is dismissed
-	local oldOnDismissCharacter = o.onDismissCharacter;
-	o.onDismissCharacter = function( _data )
-	{
-		oldOnDismissCharacter(_data);
-		::World.State.updateTopbarAssets();
 	}
 });

@@ -1,34 +1,29 @@
-::mods_hookExactClass("entity/tactical/player", function(o) {
+::modURUI.HooksMod.hook("scripts/entity/tactical/player", function(q) {
 // Summarized Mood Icon
 	// Hooks so that the summarized MoodIcon is updated whenever there was any change to player mood
-	local oldImproveMood = o.improveMood;
-	o.improveMood = function( _amount = 1.0, _reason = "")
+	q.improveMood = @(__original) function( _amount = 1.0, _reason = "")
 	{
-		oldImproveMood(_amount, _reason);
+		__original(_amount, _reason);
 		::modURUI.updateTopbarAssets();
 	}
 
-	local oldWorsenMood = o.worsenMood;
-	o.worsenMood = function( _amount = 1.0, _reason = "")
+	q.worsenMood = @(__original) function( _amount = 1.0, _reason = "")
 	{
-		oldWorsenMood(_amount, _reason);
+		__original(_amount, _reason);
 		::modURUI.updateTopbarAssets();
 	}
 
 	// Every time a brother is added to the player-roster that also triggers onHired. So I want to update the Mood here too
-	local oldOnHired = o.onHired;
-	o.onHired = function()
+	q.onHired = @(__original) function()
 	{
-		oldOnHired();
+		__original();
 		::modURUI.updateTopbarAssets();
 	}
 
 // Custom Overlay Bars
-	local oldOnCombatStarted = o.onCombatStart;
-	o.onCombatStart = function()
+	q.onCombatStart = @(__original) function()
 	{
-		oldOnCombatStarted();
+		__original();
 		this.m.CustomOverlayBars.reset();
 	}
-
 });

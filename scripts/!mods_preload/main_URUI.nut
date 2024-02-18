@@ -6,9 +6,10 @@
 	Class = {}
 }
 
-::mods_registerMod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
+::modURUI.HooksMod <- ::Hooks.register(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
+::modURUI.HooksMod.require(["mod_msu"]);
 
-::mods_queue(::modURUI.ID, "mod_msu(>=1.2.0)", function()
+::modURUI.HooksMod.queue(">mod_msu", function()
 {
 	::modURUI.Mod <- ::MSU.Class.Mod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 

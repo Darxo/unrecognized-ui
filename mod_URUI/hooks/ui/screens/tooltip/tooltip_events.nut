@@ -1,7 +1,5 @@
-::mods_hookNewObject("ui/screens/tooltip/tooltip_events", function(o)
-{
-	local oldGeneral_queryUIElementTooltipData = o.general_queryUIElementTooltipData;
-	o.general_queryUIElementTooltipData = function ( _entityId, _elementId, _elementOwner )
+::modURUI.HooksMod.hook("scripts/ui/screens/tooltip/tooltip_events", function(q) {
+	q.general_queryUIElementTooltipData = @(__original) function( _entityId, _elementId, _elementOwner )
 	{
 		// Correct vanilla tooltips for Weapon/Armor filter because we moved shields from one to the other filter
 		if (_elementId == "character-screen.right-panel-header-module.FilterWeaponsButton")
@@ -35,7 +33,8 @@
 			];
 		}
 
-		local ret = oldGeneral_queryUIElementTooltipData( _entityId, _elementId, _elementOwner );
+		local ret = __original( _entityId, _elementId, _elementOwner );
+
 		if(_elementId == "tactical-screen.topbar.options-bar-module.ToggleStatsOverlaysButton")
 		{
 			local overlayMode = ::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue();

@@ -1,12 +1,9 @@
-::mods_hookNewObject("ui/global/data_helper", function (o) {
-
+::modURUI.HooksMod.hook("scripts/ui/global/data_helper", function(q) {
 // Summarized Mood Icon - Roster Warning Icon
 	// This is called whenever anything calls ::World.State.updateTopbarAssets()
-	local oldConvertAssetsInformationToUIData = o.convertAssetsInformationToUIData;
-	o.convertAssetsInformationToUIData = function()
+	q.convertAssetsInformationToUIData = @(__original) function()
 	{
-		// ::logWarning("convertAssetsInformationToUIData hook");
-		local ret = oldConvertAssetsInformationToUIData();
+		local ret = __original();
 
 		::modURUI.SMI.calculateRosterMood();
 		::modURUI.RWI.calculateWarnings();
@@ -19,19 +16,17 @@
 
 // Useful Item Filter
 	// Item-Data now also contain the type so javascript can filter those locally
-	local oldConvertItemToUIData = o.convertItemToUIData;
-	o.convertItemToUIData = function( _item, _forceSmallIcon, _owner = null )
+	q.convertItemToUIData = @(__original) function( _item, _forceSmallIcon, _owner = null )
 	{
-		local ret = oldConvertItemToUIData( _item, _forceSmallIcon, _owner );
+		local ret = __original( _item, _forceSmallIcon, _owner );
 		if (ret != null) ret.type <- _item.getItemType();
 		return ret;
 	}
 
 // Display max Fatigue/Initiative
-	local oldAddStatsToUIData = o.addStatsToUIData;
-	o.addStatsToUIData = function( _entity, _target )
+	q.addStatsToUIData = @(__original) function( _entity, _target )
 	{
-		oldAddStatsToUIData(_entity, _target);
+		__original(_entity, _target);
 
 		local baseProperties = _entity.getBaseProperties();
 

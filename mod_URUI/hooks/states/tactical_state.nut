@@ -1,9 +1,7 @@
-::mods_hookExactClass("states/tactical_state", function(o)
-{
-	local oldInitStatsOverlays = o.initStatsOverlays;
-	o.initStatsOverlays = function()
+::modURUI.HooksMod.hook("scripts/states/tactical_state", function(q) {
+	q.initStatsOverlays = @(__original) function()
 	{
-		oldInitStatsOverlays();
+		__original();
 
 		::Settings.getTempGameplaySettings().ShowOverlayStats = false;		// Hopefully it improves performance if this vanilla setting is perma inactive
 
@@ -17,13 +15,13 @@
 	}
 
 // Custom Overlay Bars
-	o.topbar_options_onToggleStatsOverlaysButtonClicked = function()
+	q.topbar_options_onToggleStatsOverlaysButtonClicked = @() function()	// Overwrite because we re-implement the vanilla behavior
 	{
 		::modURUI.COB.toggleOverlayMode();
 	}
 
 // Highlight Blocked Tiles
-	o.topbar_options_onToggleHighlightBlockedTilesButtonClicked = function()
+	q.topbar_options_onToggleHighlightBlockedTilesButtonClicked = @() function()	// Overwrite because we re-implement the vanilla behavior
 	{
 		// if (this.isInputLocked()) return;	// Vanilla has this line but removing it allows changing this setting during enemies turn
 		::modURUI.HBT.toggleHighlightState();
