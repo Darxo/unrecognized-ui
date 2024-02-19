@@ -6,12 +6,22 @@
 		::Settings.getTempGameplaySettings().ShowOverlayStats = false;		// Hopefully it improves performance if this vanilla setting is perma inactive
 
 		// Apply the current Custom Overlay Bars
-		local ob = this.m.TacticalScreen.getTopbarOptionsModule();
-		ob.setToggleStatsOverlaysButtonState(::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue());
+		this.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue());
 
-		// Apply the current Highlight Blocked Tiles Mode
-		if (::World.Flags.has(::modURUI.HBT.WorldFlag) == false) ::World.Flags.set(::modURUI.HBT.WorldFlag, ::modURUI.HBT.BlockedState.Hidden);
-		::modURUI.HBT.setHighlightState(::World.Flags.get(::modURUI.HBT.WorldFlag));
+		// Initialization of TileOverlay variable. This is only done once each campaign
+		if (::modURUI.HBT.TileOverlay == null)
+		{
+			if (("Flags" in ::World) && (::World.Flags != null) && ::World.Flags.has(::modURUI.HBT.WorldFlag))
+			{
+				::modURUI.HBT.TileOverlay = ::World.Flags.get(::modURUI.HBT.WorldFlag);
+			}
+			else
+			{
+				::modURUI.HBT.TileOverlay = ::modURUI.HBT.BlockedState.Hidden;
+			}
+		}
+
+		::modURUI.HBT.setHighlightState(::modURUI.HBT.TileOverlay);
 	}
 
 // Custom Overlay Bars
@@ -21,7 +31,7 @@
 	}
 
 // Highlight Blocked Tiles
-	q.topbar_options_onToggleHighlightBlockedTilesButtonClicked = @() function()	// Overwrite because we re-implement the vanilla behavior
+	q.topbar_options_onToggleHighlightBlockedTilesButtonClicked = @(__original) function()
 	{
 		// if (this.isInputLocked()) return;	// Vanilla has this line but removing it allows changing this setting during enemies turn
 		::modURUI.HBT.toggleHighlightState();

@@ -1,6 +1,9 @@
 // New self-contained Namespace 'HBT' (Highlight Blocked Tiles)
 
 ::modURUI.HBT <- {
+	// State
+	TileOverlay = null,
+
 	// Const
 	Spritename = "blocked_tiles_overlay",
 	HighlightDefault = "zone_target_overlay",
@@ -30,7 +33,7 @@
 {
 	local availableOptions = ::modURUI.Mod.ModSettings.getSetting("BlockedTilesOptions").getValue();
 
-	local blockedTilesModeSetting = ::World.Flags.get(::modURUI.HBT.WorldFlag);
+	local blockedTilesModeSetting = ::modURUI.HBT.TileOverlay;
 
 	if (blockedTilesModeSetting == ::modURUI.HBT.BlockedState.Hidden)
 	{
@@ -48,9 +51,13 @@
 	}
 }
 
-::modURUI.HBT.setHighlightState <- function( _newState )
+::modURUI.HBT.setHighlightState <- function( _newState = null )
 {
-	::World.Flags.set(::modURUI.HBT.WorldFlag, _newState);
+	if ("Flags" in ::World && ::World.Flags != null)	// During Scenarios this is false
+	{
+		::World.Flags.set(::modURUI.HBT.WorldFlag, _newState);
+	}
+	::modURUI.HBT.TileOverlay = _newState;
 
 	::modURUI.HBT.applyCustomHighlight(_newState == ::modURUI.HBT.BlockedState.Custom);
 
@@ -89,7 +96,7 @@
 		overlaySprite.setBrush(::modURUI.HBT.HighlightDefault);
 	}
 	overlaySprite.setOffset(::createVec(0, 6));
-	overlaySprite.Visible = (::World.Flags.get(::modURUI.HBT.WorldFlag) == ::modURUI.HBT.BlockedState.Custom);
+	overlaySprite.Visible = (::modURUI.HBT.TileOverlay == ::modURUI.HBT.BlockedState.Custom);
 
 	local weakEntity = _entity.weakref();
 	::modURUI.HBT.HighlightedEntities.push(weakEntity);
