@@ -84,7 +84,8 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 
 
 // Misc Page
-local page = ::modURUI.Mod.ModSettings.addPage("Misc");
+{
+	local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 
 	// Custom Thresholds for the old HP Icon and the new Armor Icon
 	page.addRangeSetting("HPThreshold", 80, 0, 100, 5, "Hitpoint Threshold", "The hitpoint symbol will only be shown if the current health is below this threshold.");
@@ -134,6 +135,22 @@ local page = ::modURUI.Mod.ModSettings.addPage("Misc");
 		::modURUI.forceUpdate();
 	});
 	page.addElement(myBoolSetting);
+
+	page.addDivider("MiscDivider6");
+
+	{
+		local generateModList = function()
+		{
+			::modURUI.generateModlist();
+		}
+
+		local genModListButton = page.addButtonSetting( "GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded." );
+		genModListButton.addCallback(generateModList);
+
+		page.addStringSetting( "ModListOutput", "", "Mod List:" );
+	}
+}
+
 
 // MSU Keybinds
 	// Useful Item Filter
