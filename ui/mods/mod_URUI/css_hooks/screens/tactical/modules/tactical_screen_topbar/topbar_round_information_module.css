@@ -1,0 +1,44 @@
+.tactical-screen .topbar-round-information-module .left-container
+{
+	width: 40%;		/* up from 34% */
+}
+
+.tactical-screen .topbar-round-information-module .middle-container
+{
+	width: 20%;		/* down from 30% */
+}
+
+.tactical-screen .topbar-round-information-module .right-container
+{
+	width: 40%;		/* up from 34% */
+}
+
+.tactical-screen .topbar-round-information-module .l-round-number-container
+{
+	width: 100%;		/* up from 7.0rem */
+}
+
+.tactical-screen .topbar-round-information-module .entities-count-image.is-right
+{
+	left: 0.5rem;		/* new */
+}
+
+.tactical-screen .topbar-round-information-module .entities-count-image.is-left
+{
+	right: 0.5rem;		/* new */
+}
+
+.tactical-screen .topbar-round-information-module .l-entities-count-text
+{
+	width: 8.0rem;		/* up from 5.8rem */
+}
+
+.tactical-screen .topbar-round-information-module .l-entities-count-text.is-right
+{
+	right: 0;		/* new */
+}
+
+.tactical-screen .topbar-round-information-module .l-entities-count-text.is-left
+{
+	left: 0;		/* new */
+}

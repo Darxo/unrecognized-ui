@@ -1,5 +1,6 @@
 ::modURUI.HooksMod.hook("scripts/entity/tactical/actor", function(q) {
 	q.m.CustomOverlayBars <- null;
+	q.m.WasUpdateVisibilityHooked <- false;
 
 	// We use this so that our Overlay Bar Sprites are created last and drawn over everthing else
 	q.onAfterInit = @(__original) function()
@@ -78,6 +79,28 @@
 		if (factionChanged && this.getCustomOverlayBars() != null)  // The game changes the faction somewhere before the onAfterInit where the overlay is initialised
 		{
 			this.getCustomOverlayBars().fullUIUpdate();
+		}
+	}
+
+	q.onPlacedOnMap = @(__original) function()
+	{
+		__original();
+
+		if (!this.m.WasUpdateVisibilityHooked)	// Otherwise player characters and other actors which persist between fights, would be hooked multiple times here
+		{
+			this.m.WasUpdateVisibilityHooked = true;
+
+			// The function updateVisibility is added to entities on-the-fly at some point after initialization. That's why we can only hook it here
+			local oldUpdateVisibility = this.entity.updateVisibility;
+			this.entity.updateVisibility = function( _tile, _visionRadius, _faction )
+			{
+				oldUpdateVisibility(_tile, _visionRadius, _faction);
+
+				if (_faction == ::Const.Faction.Player)
+				{
+					::Tactical.TopbarRoundInformation.refreshTopbarIfChanged();
+				}
+			}
 		}
 	}
 

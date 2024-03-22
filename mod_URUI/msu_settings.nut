@@ -1,6 +1,7 @@
 
 // Combat Overlay Setting Page
-local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
+{
+	local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 
 	// My class that applies all the option changes hooks into the setDirty function of the actor
 	local genericCallback = function( _oldValue )
@@ -68,10 +69,59 @@ local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 	// Damaged Health Threshold
 	local healthThresholdSetting = combatOverlayPage.addRangeSetting("OverlayHealthThreshold", 100, 20, 100, 2, "Damaged Health Threshold", "An actor counts as 'damaged' while their Health is below this percentage.");
 	healthThresholdSetting.addAfterChangeCallback(genericCallback);
+}
+
+// Combat General
+{
+	local page = ::modURUI.Mod.ModSettings.addPage("Combat - General");
+
+	// Blocked Tiles Setting
+	{
+		local myEnumSetting = ::MSU.Class.EnumSetting(
+			"BlockedTilesOptions",
+			::modURUI.HBT.HighlightOption.Both,
+			[::modURUI.HBT.HighlightOption.Both, ::modURUI.HBT.HighlightOption.Custom, ::modURUI.HBT.HighlightOption.Vanilla],
+			"Highlight Options for Blocked Tiles",
+			"Control which highlight modes for blocked tiles should be available. Choosing a specific mode improves the toggling during battle."
+		);
+		page.addElement(myEnumSetting);
+	}
+
+	page.addDivider("CombatGeneralDivider1");
+	// Round Information Setting
+	{
+		local genericCallback = function( _oldValue )
+		{
+			if (!::MSU.Utils.hasState("tactical_state")) return;
+			if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
+			::Tactical.TopbarRoundInformation.update();
+		}
+
+		local myAllyEnumSetting = ::MSU.Class.EnumSetting(
+			"RoundInformationAllyNumber",
+			"Brothers + Allies",
+			["Brothers + Allies", "Total"],
+			"Ally Entity Amount",
+			"Controls how the amount of allies on the left side of the round information is displayed. \"Brothers + Allies\" will display the amount of your brothers separated from the amount of every other ally."
+		);
+		myAllyEnumSetting.addAfterChangeCallback(genericCallback);
+		page.addElement(myAllyEnumSetting);
+
+		local myEnemyEnumSetting = ::MSU.Class.EnumSetting(
+			"RoundInformationEnemyNumber",
+			"Visible (Total)",
+			["Visible (Total)", "Total"],
+			"Enemy Entity Amount",
+			"Controls how the amount of enemies on the right side of the round information is displayed. \"Visible (Total)\" will display the amount of enemies currently visible to you alongside the total amount."
+		);
+		myEnemyEnumSetting.addAfterChangeCallback(genericCallback);
+		page.addElement(myEnemyEnumSetting);
+	}
+}
 
 // Filter Page
 local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
-
+{
 	// Useful Item Filter
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterShop", true , "Reset Item Filter (Shop)", "Entering a Shop will always reset the Item Filter back to 'All'");
 	page.addElement(myBoolSetting);
@@ -81,7 +131,7 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ApplyItemFilterToShops", true , "Filter Shop Items", "Inventories of Shops are affected by the current Item Filter");
 	page.addElement(myBoolSetting);
-
+}
 
 // Misc Page
 {
@@ -107,23 +157,13 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 	page.addElement(myEnumSetting);
 	page.addDivider("MiscDivider2");
 
-	// Blocked Tiles Setting
-	local myEnumSetting = ::MSU.Class.EnumSetting(
-		"BlockedTilesOptions",
-		::modURUI.HBT.HighlightOption.Both,
-		[::modURUI.HBT.HighlightOption.Both, ::modURUI.HBT.HighlightOption.Custom, ::modURUI.HBT.HighlightOption.Vanilla],
-		"Highlight Options for Blocked Tiles",
-		"Control which highlight modes for blocked tiles should be available. Choosing a specific mode improves the toggling during battle."
-	);
-	page.addElement(myEnumSetting);
-	page.addDivider("MiscDivider3");
 
 	// Fatigue/Initiative Attribute Display
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
 	page.addElement(myBoolSetting);
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
 	page.addElement(myBoolSetting);
-	page.addDivider("MiscDivider4");
+	page.addDivider("MiscDivider3");
 
 	// Roster Warning Icon
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
@@ -136,7 +176,7 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 	});
 	page.addElement(myBoolSetting);
 
-	page.addDivider("MiscDivider6");
+	page.addDivider("MiscDivider4");
 
 	{
 		local generateModList = function()

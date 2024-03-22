@@ -36,4 +36,28 @@
 		// if (this.isInputLocked()) return;	// Vanilla has this line but removing it allows changing this setting during enemies turn
 		::modURUI.HBT.toggleHighlightState();
 	}
+
+	// Implement settings for improving the display of allied and enemy numbers during battle
+	q.topbar_round_information_onQueryRoundInformation = @(__original) function()
+	{
+		local ret = __original();
+
+		if (::modURUI.Mod.ModSettings.getSetting("RoundInformationAllyNumber").getValue() == "Brothers + Allies")
+		{
+			local brotherNum = ::Tactical.Entities.getInstancesNum(::Const.Faction.Player);
+			local nonBrotherAllies = ret.brothersCount - brotherNum;
+			if (nonBrotherAllies)
+			{
+				ret.brothersCount = brotherNum + " + " + nonBrotherAllies;
+			}
+		}
+
+		if (::modURUI.Mod.ModSettings.getSetting("RoundInformationEnemyNumber").getValue() == "Visible (Total)")
+		{
+			local visibleEnemies = ::Tactical.Entities.getVisibleHostilesNum();
+			ret.enemiesCount = visibleEnemies + " (" + ret.enemiesCount + ")";
+		}
+
+		return ret;
+	}
 });
