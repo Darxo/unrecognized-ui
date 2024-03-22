@@ -15,7 +15,7 @@
 
 	::includeFiles(::IO.enumerateFiles("mod_URUI/hooks"));		// run all squirrel hooks
 
-	::include("mod_URUI/javascript_hooks");						// Load all javascript and css files
+	::include("mod_URUI/ui/load");								// Load all javascript and css files
 
 	::include("mod_URUI/private_functions");					// globally accessible but private functions
 	::include("mod_URUI/public_functions");						// Functions meant to be called by other mods
