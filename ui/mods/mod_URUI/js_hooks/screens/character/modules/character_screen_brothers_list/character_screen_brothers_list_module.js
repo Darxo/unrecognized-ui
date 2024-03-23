@@ -8,13 +8,14 @@ CharacterScreenBrothersListModule.prototype.updateBrotherSlot = function(_data)
 	modURUI_CharacterScreenBrothersListModule_updateBrotherSlot.call(this, _data);
 	_data['stats'].hitpoints = oldHealth;
 
+	// Replicate Vanilla exit condition
 	var slot = this.mListScrollContainer.find('#slot-index_' + _data[CharacterScreenIdentifier.Entity.Id] + ':first');
 	if (slot.length === 0)
 	{
 		return;
 	}
 
-	if (_data['injuries'].length <= 2)
+	if (_data['injuries'].length <= 2)	// Vanilla only displays the health icon when there are 2 or fewer injuries to display. We do the same
 	{
 		var hpSetting = MSU.getSettingValue("mod_URUI", "HPThreshold");
 		var hpThreshold = hpSetting * (_data['stats'].hitpointsMax / 100.0);
@@ -46,6 +47,7 @@ CharacterScreenBrothersListModule.prototype.updateBrotherSlot = function(_data)
 var modURUI_CharacterScreenBrothersListModule_addBrotherSlotDIV = CharacterScreenBrothersListModule.prototype.addBrotherSlotDIV;
 CharacterScreenBrothersListModule.prototype.addBrotherSlotDIV = function (_parentDiv, _data, _index, _allowReordering)
 {
+	// This is the second time that vanilla calls "assignListBrotherDaysWounded" so we need to apply our own highlighting method also right after
 	modURUI_CharacterScreenBrothersListModule_addBrotherSlotDIV.call(this, _parentDiv, _data, _index, _allowReordering);
 	this.updateBrotherSlot(_data);
 }

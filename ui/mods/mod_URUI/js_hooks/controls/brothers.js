@@ -1,4 +1,5 @@
 {
+	// New Functions that works exactly like "assignListBrotherDaysWounded" but allows you to pass a custom image
 	$.fn.assignListBrotherHybrid = function( _iconPath )
 	{
 		var layer = this.find('.asset-layer:first');
