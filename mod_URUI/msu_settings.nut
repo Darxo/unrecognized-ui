@@ -73,7 +73,7 @@
 
 // Combat General
 {
-	local page = ::modURUI.Mod.ModSettings.addPage("Combat - General");
+	local combatGeneralPage = ::modURUI.Mod.ModSettings.addPage("Combat - General");
 
 	// Blocked Tiles Setting
 	{
@@ -84,10 +84,10 @@
 			"Highlight Options for Blocked Tiles",
 			"Control which highlight modes for blocked tiles should be available. Choosing a specific mode improves the toggling during battle."
 		);
-		page.addElement(myEnumSetting);
+		combatGeneralPage.addElement(myEnumSetting);
 	}
 
-	page.addDivider("CombatGeneralDivider1");
+	combatGeneralPage.addDivider("CombatGeneralDivider1");
 	// Round Information Setting
 	{
 		local genericCallback = function( _oldValue )
@@ -105,7 +105,7 @@
 			"Controls how the amount of allies on the left side of the round information is displayed. \"Brothers + Allies\" will display the amount of your brothers separated from the amount of every other ally."
 		);
 		myAllyEnumSetting.addAfterChangeCallback(genericCallback);
-		page.addElement(myAllyEnumSetting);
+		combatGeneralPage.addElement(myAllyEnumSetting);
 
 		local myEnemyEnumSetting = ::MSU.Class.EnumSetting(
 			"RoundInformationEnemyNumber",
@@ -115,35 +115,36 @@
 			"Controls how the amount of enemies on the right side of the round information is displayed. \"Visible (Total)\" will display the amount of enemies currently visible to you alongside the total amount."
 		);
 		myEnemyEnumSetting.addAfterChangeCallback(genericCallback);
-		page.addElement(myEnemyEnumSetting);
+		combatGeneralPage.addElement(myEnemyEnumSetting);
 	}
 }
 
 // Filter Page
-local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 {
+	local filterPage = ::modURUI.Mod.ModSettings.addPage("Item Filter");
+
 	// Useful Item Filter
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterShop", true , "Reset Item Filter (Shop)", "Entering a Shop will always reset the Item Filter back to 'All'");
-	page.addElement(myBoolSetting);
+	filterPage.addElement(myBoolSetting);
 
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ResetItemFilterCharacter", false , "Reset Item Filter (Char-Screen)", "Opening your character screen will always reset the Item Filter back to 'All'");
-	page.addElement(myBoolSetting);
+	filterPage.addElement(myBoolSetting);
 
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ApplyItemFilterToShops", true , "Filter Shop Items", "Inventories of Shops are affected by the current Item Filter");
-	page.addElement(myBoolSetting);
+	filterPage.addElement(myBoolSetting);
 }
 
 // Misc Page
 {
-	local page = ::modURUI.Mod.ModSettings.addPage("Misc");
+	local miscPage = ::modURUI.Mod.ModSettings.addPage("Misc");
 
 	// Custom Thresholds for the old HP Icon and the new Armor Icon
-	page.addRangeSetting("HPThreshold", 80, 0, 100, 5, "Hitpoint Threshold", "The hitpoint symbol will only be shown if the current health is below this threshold.");
-	page.addRangeSetting("ArmorThreshold", 80, 0, 100, 5, "Armor Threshold", "The armor symbol will only be shown if either the current head- or body armor is below this threshold.");
+	miscPage.addRangeSetting("HPThreshold", 80, 0, 100, 5, "Hitpoint Threshold", "The hitpoint symbol will only be shown if the current health is below this threshold.");
+	miscPage.addRangeSetting("ArmorThreshold", 80, 0, 100, 5, "Armor Threshold", "The armor symbol will only be shown if either the current head- or body armor is below this threshold.");
 
 	// Should a missing armor spawn an Icon?
-	page.addBooleanSetting( "NotifyMissingPieces", true , "Notify on Missing Armor", "A brother who is not wearing a helmet or body armour will show the 'Missing-Armor-Symbol'");
-	page.addDivider("MiscDivider1");
+	miscPage.addBooleanSetting( "NotifyMissingPieces", true , "Notify on Missing Armor", "A brother who is not wearing a helmet or body armour will show the 'Missing-Armor-Symbol'");
+	miscPage.addDivider("MiscDivider1");
 
 	// Summarized Mood Icon
 	local myEnumSetting = ::MSU.Class.EnumSetting("ShowMoodIcon", "Lowest Mood", ["Do not show", "Lowest Mood", "Average Mood"], "Show Mood Icon", "Displays a single mood icon on top of the roster button that summarizes the mood of all your brothers.");
@@ -154,16 +155,16 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
 		::World.State.updateTopbarAssets();
 	});
-	page.addElement(myEnumSetting);
-	page.addDivider("MiscDivider2");
+	miscPage.addElement(myEnumSetting);
+	miscPage.addDivider("MiscDivider2");
 
 
 	// Fatigue/Initiative Attribute Display
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
-	page.addElement(myBoolSetting);
+	miscPage.addElement(myBoolSetting);
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
-	page.addElement(myBoolSetting);
-	page.addDivider("MiscDivider3");
+	miscPage.addElement(myBoolSetting);
+	miscPage.addDivider("MiscDivider3");
 
 	// Roster Warning Icon
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
@@ -174,20 +175,21 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
 		::modURUI.forceUpdate();
 	});
-	page.addElement(myBoolSetting);
+	miscPage.addElement(myBoolSetting);
 
-	page.addDivider("MiscDivider4");
+	miscPage.addDivider("MiscDivider4");
 
+	// Mod List
 	{
 		local generateModList = function()
 		{
 			::modURUI.generateModlist();
 		}
 
-		local genModListButton = page.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded.");
+		local genModListButton = miscPage.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded.");
 		genModListButton.addCallback(generateModList);
 
-		page.addStringSetting("ModListOutput", "", "Mod List:");
+		miscPage.addStringSetting("ModListOutput", "", "Mod List:");
 	}
 }
 
