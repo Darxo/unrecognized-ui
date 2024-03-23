@@ -35,6 +35,8 @@
 
 		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseInitiative").getValue()) _target.initiativeMax = baseProperties.getInitiative();
 
+		_target.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
+
 		// We only change the displayed fatigue outside of combat. During combat that stat is not important
 		if (::MSU.Utils.hasState("tactical_state")) return;
 
