@@ -1,7 +1,7 @@
 ::modURUI <- {
 	ID = "mod_URUI",
 	Name = "Unrecognized UI",
-	Version = "1.1.0",
+	Version = "1.2.0",
 	GitHubURL = "https://github.com/Darxo/unrecognized-ui",
 	Const = {},
 	Class = {}
