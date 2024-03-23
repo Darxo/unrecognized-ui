@@ -84,7 +84,7 @@ this.custom_overlay_bars <- {
 		this.m.HitpointBar.setBrush("MDN_entityoverlay_bar_24");
 		_actor.setSpriteRenderToTexture("MDN_HitpointBar", false);
 
-		for(local i = 0; i < this.m.IconsMax ; i++)
+		for (local i = 0; i < this.m.IconsMax ; i++)
 		{
 			this.m.OverlayMiniIcons.push(_actor.addSprite(this.m.IconSpriteName + i));
 			_actor.setSpriteRenderToTexture(this.m.IconSpriteName + i, false);
@@ -212,7 +212,7 @@ this.custom_overlay_bars <- {
 	function setIconVisibility(_visible)
 	{
 		local miniIconAlpha = ::modURUI.Mod.ModSettings.getSetting("IconAlpha").getValue();
-		foreach(sprite in this.m.OverlayMiniIcons)
+		foreach (sprite in this.m.OverlayMiniIcons)
 		{
 			sprite.Visible = _visible;
 			sprite.Alpha = miniIconAlpha;
@@ -241,7 +241,7 @@ this.custom_overlay_bars <- {
 		local currentPosition = ::createVec(startingPosition.X, startingPosition.Y);
 
 		local placedIcons = 0;
-		foreach(sprite in this.m.OverlayMiniIcons)
+		foreach (sprite in this.m.OverlayMiniIcons)
 		{
 			sprite.setOffset(currentPosition);
 			placedIcons++;
@@ -261,7 +261,7 @@ this.custom_overlay_bars <- {
 		local currentPosition = ::createVec(startingPosition.X, startingPosition.Y);
 
 		local placedIcons = 0;  // because we use module operator we dont't want this to start at 0
-		foreach(iconSprite in _iconArray)
+		foreach (iconSprite in _iconArray)
 		{
 			this.m.OverlayMiniIcons[placedIcons].setBrush(iconSprite);
 			this.m.OverlayMiniIcons[placedIcons].setOffset(currentPosition);
@@ -274,7 +274,7 @@ this.custom_overlay_bars <- {
 			}
 			if (placedIcons >= this.m.IconsMax) break;
 		}
-		for(; placedIcons < this.m.IconsMax ; placedIcons++)    // Todo: do performance improvements
+		for (; placedIcons < this.m.IconsMax ; placedIcons++)    // Todo: do performance improvements
 		{
 			this.m.OverlayMiniIcons[placedIcons].resetBrush();
 		}
@@ -287,7 +287,7 @@ this.custom_overlay_bars <- {
 		this.m.ChestBar.Scale = _size;
 		this.m.HitpointBar.Scale = _size;
 		this.m.BackgroundBars.Alpha = this.m.BackgroundBarAlpha;    // Otherwise this sprite will somehow lose its one-time alpha value. Idk why.
-		foreach(sprite in this.m.OverlayMiniIcons)
+		foreach (sprite in this.m.OverlayMiniIcons)
 		{
 			sprite.Scale = _size;
 		}

@@ -33,12 +33,12 @@
 			];
 		}
 
-		local ret = __original( _entityId, _elementId, _elementOwner );
+		local ret = __original(_entityId, _elementId, _elementOwner);
 
-		if(_elementId == "tactical-screen.topbar.options-bar-module.ToggleStatsOverlaysButton")
+		if (_elementId == "tactical-screen.topbar.options-bar-module.ToggleStatsOverlaysButton")
 		{
 			local overlayMode = ::modURUI.Mod.ModSettings.getSetting("OverlayDisplayMode").getValue();
-			foreach(textEntry in ret)
+			foreach (textEntry in ret)
 			{
 				if (textEntry.id == 1 && textEntry.type == "title")
 				{

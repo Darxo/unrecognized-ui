@@ -10,7 +10,7 @@
 		ret.FormationMaxSize <- rosterSize;
 
 		// Pass information about our squirrel item filter over to javascript
-		if (this.m.InventoryMode != this.Const.CharacterScreen.InventoryMode.Ground)
+		if (this.m.InventoryMode != ::Const.CharacterScreen.InventoryMode.Ground)
 		{
 			ret.Filter1 <- ::Const.Items.ItemFilter.All;
 			ret.Filter2 <- ::Const.Items.ItemFilter.Weapons;

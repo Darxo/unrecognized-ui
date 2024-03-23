@@ -7,7 +7,7 @@ local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 	{
 		if (!::MSU.Utils.hasState("tactical_state")) return;    // At the start of any combat a 'fullUIUpdate' will be called anyways so we dont need to do that preemtively
 		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
-		local allEntities = this.Tactical.Entities.getAllInstancesAsArray();
+		local allEntities = ::Tactical.Entities.getAllInstancesAsArray();
 		foreach(entity in allEntities)
 		{
 			entity.getCustomOverlayBars().fullUIUpdate();
@@ -45,7 +45,7 @@ local combatOverlayPage = ::modURUI.Mod.ModSettings.addPage("Combat Overlay");
 	{
 		if (!::MSU.Utils.hasState("tactical_state")) return;
 		::Tactical.State.m.TacticalScreen.getTopbarOptionsModule().setToggleStatsOverlaysButtonState(this.getValue());
-		genericCallback( _oldValue );
+		genericCallback(_oldValue);
 	}
 	local myEnumBarSetting = combatOverlayPage.addEnumSetting("OverlayDisplayMode", ::modURUI.COB.OnlyWhileDamaged.Setting, [::modURUI.COB.OnlyWhileDamaged.Setting, ::modURUI.COB.NeverShow.Setting, ::modURUI.COB.AlwaysShow.Setting], "Overlay Display Mode", "Controls how and when the complete combat overlay on the entities during a battle are shown.");
 	myEnumBarSetting.addAfterChangeCallback(displayModeCallback);
@@ -144,10 +144,10 @@ local page = ::modURUI.Mod.ModSettings.addPage("Item Filter");
 			::modURUI.generateModlist();
 		}
 
-		local genModListButton = page.addButtonSetting( "GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded." );
+		local genModListButton = page.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded.");
 		genModListButton.addCallback(generateModList);
 
-		page.addStringSetting( "ModListOutput", "", "Mod List:" );
+		page.addStringSetting("ModListOutput", "", "Mod List:");
 	}
 }
 

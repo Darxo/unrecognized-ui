@@ -31,7 +31,7 @@
 	}
 
 // Highlight Blocked Tiles
-	q.topbar_options_onToggleHighlightBlockedTilesButtonClicked = @(__original) function()
+	q.topbar_options_onToggleHighlightBlockedTilesButtonClicked = @() function()
 	{
 		// if (this.isInputLocked()) return;	// Vanilla has this line but removing it allows changing this setting during enemies turn
 		::modURUI.HBT.toggleHighlightState();

@@ -61,7 +61,7 @@
 
 	::modURUI.HBT.applyCustomHighlight(_newState == ::modURUI.HBT.BlockedState.Custom);
 
-	local settings = this.Settings.getTempGameplaySettings();
+	local settings = ::Settings.getTempGameplaySettings();
 	settings.HighlightBlockedTiles = (_newState == ::modURUI.HBT.BlockedState.Vanilla);
 	::Tactical.setBlockedTileHighlightsVisibility(settings.HighlightBlockedTiles);
 
@@ -70,7 +70,7 @@
 
 ::modURUI.HBT.applyCustomHighlight <- function( _visible )
 {
-	foreach(entity in ::modURUI.HBT.HighlightedEntities)
+	foreach (entity in ::modURUI.HBT.HighlightedEntities)
 	{
 		if (entity == null) continue;
 		if (entity.isAlive == null) ::MSU.Log.printData(entity, 2);

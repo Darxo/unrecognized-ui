@@ -28,7 +28,7 @@
 		local combinedMood = 0.0;
 
 		local roster = ::World.getPlayerRoster().getAll();
-		foreach( bro in roster )
+		foreach (bro in roster)
 		{
 			combinedMood += bro.getMoodState();
 

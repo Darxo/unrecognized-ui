@@ -43,13 +43,13 @@
 		// Overlay Bars
 		local headArmor = 0.0;
 		local bodyArmor = 0.0;
-		if (this.getArmorMax(this.Const.BodyPart.Head) > 0)
+		if (this.getArmorMax(::Const.BodyPart.Head) > 0)
 		{
-			headArmor = this.getArmor(this.Const.BodyPart.Head) / this.getArmorMax(this.Const.BodyPart.Head);
+			headArmor = this.getArmor(::Const.BodyPart.Head) / this.getArmorMax(::Const.BodyPart.Head);
 		}
-		if (this.getArmorMax(this.Const.BodyPart.Body) > 0)
+		if (this.getArmorMax(::Const.BodyPart.Body) > 0)
 		{
-			bodyArmor = this.getArmor(this.Const.BodyPart.Body) / this.getArmorMax(this.Const.BodyPart.Body);
+			bodyArmor = this.getArmor(::Const.BodyPart.Body) / this.getArmorMax(::Const.BodyPart.Body);
 		}
 
 		// These values are usually between 0.0 and 1.0. Unless some mod does glitchy things again
@@ -91,7 +91,7 @@
 	{
 		local status = this.getSkills().query(::Const.SkillType.StatusEffect | ::Const.SkillType.Terrain);
 		local icons = [];
-		foreach( s in status )
+		foreach (s in status)
 		{
 			if (s.getIconMini().len() != 0)
 			{

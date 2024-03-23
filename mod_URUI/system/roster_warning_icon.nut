@@ -19,7 +19,7 @@
 {
 	::modURUI.RWI.RosterWarning = false;
 	if (!("Assets" in ::World) || ::World.Assets == null || ::World.Assets.getOrigin() == null) return;
-	foreach(rosterCheck in ::modURUI.RWI.RosterChecks)
+	foreach (rosterCheck in ::modURUI.RWI.RosterChecks)
 	{
 		if (rosterCheck())
 		{
@@ -34,7 +34,7 @@
 {
 	::modURUI.RWI.FormationWarning = false;
 	if (!("Assets" in ::World) || ::World.Assets == null || ::World.Assets.getOrigin() == null) return;
-	foreach(formationCheck in ::modURUI.RWI.FormationChecks)
+	foreach (formationCheck in ::modURUI.RWI.FormationChecks)
 	{
 		if (formationCheck())
 		{

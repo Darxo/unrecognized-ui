@@ -4,11 +4,13 @@
 	q.queryShopInformation = @(__original) function()
 	{
 		local ret = __original();
+
 		ret.Filter1 <- ::Const.Items.ItemFilter.All;
 		ret.Filter2 <- ::Const.Items.ItemFilter.Weapons;
 		ret.Filter3 <- ::Const.Items.ItemFilter.Armor;
 		ret.Filter4 <- ::Const.Items.ItemFilter.Usable;
 		ret.Filter5 <- ::Const.Items.ItemFilter.Misc;
+
 		return ret;
 	}
 });
