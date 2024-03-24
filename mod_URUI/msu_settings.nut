@@ -180,7 +180,7 @@
 			::modURUI.generateModlist();
 		}
 
-		local genModListButton = miscPage.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. Vanilla Files, modern hooks, hooks and msu are excluded.");
+		local genModListButton = miscPage.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. The base game is excluded but DLCs will be listed.");
 		genModListButton.addCallback(generateModList);
 
 		miscPage.addStringSetting("ModListOutput", "", "Mod List:");
