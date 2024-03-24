@@ -102,8 +102,8 @@ this.custom_overlay_bars <- {
 	function fullUIUpdate()
 	{
 		if (this.m.Actor.isPlacedOnMap() == false) return;
-		this.m.HelmetColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("ChestBarColor").getValueAsHexString());
-		this.m.ChestColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("HelmetBarColor").getValueAsHexString());
+		this.m.HelmetColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("HelmetBarColor").getValueAsHexString());
+		this.m.ChestColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("ChestBarColor").getValueAsHexString());
 		this.m.AllyHealthColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("AllyHealthBarColor").getValueAsHexString());
 		this.m.EnemyHealthColor = ::createColor(::modURUI.Mod.ModSettings.getSetting("EnemyHealthBarColor").getValueAsHexString());
 
