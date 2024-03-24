@@ -164,7 +164,12 @@
 	miscPage.addElement(myBoolSetting);
 	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
 	miscPage.addElement(myBoolSetting);
+
 	miscPage.addDivider("MiscDivider3");
+
+	// Use Local MaxMorale
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "UseLocalMaxMorale", false , "Compare against local MoraleMax", "The Morale progressbar in Vanilla will always compare the current morale against the highest possible one in the game. Activating this option instead compares it to the highest morale possible for the currently viewed character.");
+	miscPage.addElement(myBoolSetting);
 
 	miscPage.addDivider("MiscDivider4");
 

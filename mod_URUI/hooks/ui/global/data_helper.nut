@@ -35,7 +35,14 @@
 
 		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseInitiative").getValue()) _target.initiativeMax = baseProperties.getInitiative();
 
-		_target.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
+		if (::modURUI.Mod.ModSettings.getSetting("UseLocalMaxMorale").getValue())
+		{
+			_target.moraleMax = _entity.m.MaxMoraleState;	// The entity now provides the maximum morale to compare against when constructing the ProgressBar
+		}
+		else
+		{
+			_target.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
+		}
 
 		// We only change the displayed fatigue outside of combat. During combat that stat is not important
 		if (::MSU.Utils.hasState("tactical_state")) return;
