@@ -1,5 +1,12 @@
-::modURUI.RWI <- {
+// Deprecated - This Feature is a bit awkward in practice and needs much more though before offering it as a framework for others to use
+// For now it's just not advertised but still in code
 
+/*
+The feature for Roster Warning Icons adds the ability for other mods to warn the player via a Warning-Icon on the Roster-Button in the World/Town Screen
+Other mods need to call a public function from this mod for that and register a function.
+*/
+
+::modURUI.RWI <- {
 	//Global
 	RosterWarning = false,		// Is shown in WorldScreen and TownScreen
 	FormationWarning = false,	// Is shown in WorldScreen and CharacterScreen

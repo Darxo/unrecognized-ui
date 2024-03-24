@@ -166,17 +166,6 @@
 	miscPage.addElement(myBoolSetting);
 	miscPage.addDivider("MiscDivider3");
 
-	// Roster Warning Icon
-	local myBoolSetting = ::MSU.Class.BooleanSetting( "ShowRosterWarning", true , "Show Roster Warning", "Allows other mods to display a Warning-Icon on top of the roster buttons under certain conditions.");
-	myBoolSetting.addAfterChangeCallback(function (_oldValue)
-	{
-		if (::MSU.Utils.getActiveState() == null) return;
-		if (::MSU.Utils.getActiveState().ClassName == "main_menu_state") return;	// otherwise the game crashes when changing settings in main menu
-		if (this.Value == _oldValue) return;    // Value didn't change. We don't need an update
-		::modURUI.forceUpdate();
-	});
-	miscPage.addElement(myBoolSetting);
-
 	miscPage.addDivider("MiscDivider4");
 
 	// Mod List

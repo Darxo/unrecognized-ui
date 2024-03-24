@@ -8,8 +8,8 @@
 		::modURUI.SMI.calculateRosterMood();
 		::modURUI.RWI.calculateWarnings();
 
-		ret.FormationWarning <- (::modURUI.RWI.FormationWarning && ::modURUI.Mod.ModSettings.getSetting("ShowRosterWarning").getValue())
-		ret.RosterWarning <- (::modURUI.RWI.RosterWarning && ::modURUI.Mod.ModSettings.getSetting("ShowRosterWarning").getValue());
+		ret.FormationWarning <- ::modURUI.RWI.FormationWarning;
+		ret.RosterWarning <- ::modURUI.RWI.RosterWarning;
 		ret.RosterMood <- ::modURUI.SMI.RosterMood
 
 		return ret;

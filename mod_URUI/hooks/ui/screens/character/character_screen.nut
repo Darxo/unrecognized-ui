@@ -5,7 +5,7 @@
 		local ret = __original();
 
 		::modURUI.RWI.calculateWarnings();
-		ret.FormationWarning <- (::modURUI.RWI.FormationWarning && ::modURUI.Mod.ModSettings.getSetting("ShowRosterWarning").getValue());
+		ret.FormationWarning <- ::modURUI.RWI.FormationWarning;
 		local rosterSize = (("State" in ::World) && ::World.State != null ? ::World.Assets.getBrothersMaxInCombat() : 12);
 		ret.FormationMaxSize <- rosterSize;
 

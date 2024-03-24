@@ -31,8 +31,5 @@
 	::modURUI.forceUpdate <- function()
 	{
 		::modURUI.updateTopbarAssets();	// this causes a calculateWarnings call in order to update that FormationWarning variable
-		if (::modURUI.Mod.ModSettings.getSetting("ShowRosterWarning").getValue())
-		{
-			::World.State.m.CharacterScreen.setWarning(::modURUI.RWI.FormationWarning);
-		}
+		::World.State.m.CharacterScreen.setWarning(::modURUI.RWI.FormationWarning);
 	}
