@@ -26,14 +26,10 @@
 		return ret;
 	}
 
-// Display max Fatigue/Initiative
+// Adjust display of Fatigue/Initiative/Morale
 	q.addStatsToUIData = @(__original) function( _entity, _target )
 	{
 		__original(_entity, _target);
-
-		local baseProperties = _entity.getBaseProperties();
-
-		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseInitiative").getValue()) _target.initiativeMax = baseProperties.getInitiative();
 
 		if (::modURUI.Mod.ModSettings.getSetting("UseLocalMaxMorale").getValue())
 		{
@@ -44,9 +40,16 @@
 			_target.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
 		}
 
-		// We only change the displayed fatigue outside of combat. During combat that stat is not important
-		if (::MSU.Utils.hasState("tactical_state")) return;
+		local baseProperties = _entity.getBaseProperties();
+		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseInitiative").getValue())
+		{
+			_target.initiativeMax = baseProperties.getInitiative();
+		}
 
+		if (::MSU.Utils.hasState("tactical_state")) return;
+		// Now only non-battle stuff:
+
+		// We only change the displayed Stamina outside of combat. During battle the current fatigue is much more important to display there
 		if (::modURUI.Mod.ModSettings.getSetting("DisplayBaseFatigue").getValue())
 		{
 			_target.fatigue = _target.fatigueMax;
