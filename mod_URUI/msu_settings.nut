@@ -160,15 +160,15 @@
 
 
 	// Fatigue/Initiative Attribute Display
-	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Fatigue", "While outside of combat: your current fatigue is now displayed as the blue part of the progress bar while your base fatigue will be its maximum.");
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseFatigue", false , "Display Base Stamina", "While outside of combat: your current Stamina is now displayed as the blue part of the progress bar while your base Stamina will be its maximum.");
 	miscPage.addElement(myBoolSetting);
-	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current initiative is now displayed as the yellow part of the progress bar while your base initiative will be its maximum.");
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "DisplayBaseInitiative", false , "Display Base Initiative", "While outside of combat: your current Initiative is now displayed as the yellow part of the progress bar while your base Initiative will be its maximum.");
 	miscPage.addElement(myBoolSetting);
 
 	miscPage.addDivider("MiscDivider3");
 
 	// Use Local MaxMorale
-	local myBoolSetting = ::MSU.Class.BooleanSetting( "UseLocalMaxMorale", false , "Compare against local MoraleMax", "The Morale progressbar in Vanilla will always compare the current morale against the highest possible one in the game. Activating this option instead compares it to the highest morale possible for the currently viewed character.");
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "UseLocalMaxMorale", false , "Compare against local MoraleMax", "The Morale progressbar in Vanilla will always compare the current morale against the highest possible one in the game. Activating this option instead compares it to the highest morale possible for the currently viewed character during combat only.");
 	miscPage.addElement(myBoolSetting);
 
 	miscPage.addDivider("MiscDivider4");
@@ -180,7 +180,7 @@
 			::modURUI.generateModlist();
 		}
 
-		local genModListButton = miscPage.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. The base game is excluded but DLCs will be listed.");
+		local genModListButton = miscPage.addButtonSetting("GenModListButton", false, "Generate Mod List", "Generate a list of all Mods which are currently registered via Modern Hooks, separated by semi colons. The base game is excluded but DLCs will be listed.\n\nTo share it:\n• click into the textbox to the right\n• press ctrl + a\n• press ctrl + c");
 		genModListButton.addCallback(generateModList);
 
 		miscPage.addStringSetting("ModListOutput", "", "Mod List:");
