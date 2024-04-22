@@ -9,7 +9,8 @@
 		}
 		else
 		{
-			ret.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
+			// - The Morale Progressbar now correctly treats Confident as the highest achievable morale state. 'Confident' now fully fills out that bar.
+			// ret.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
 		}
 
 		return ret;
