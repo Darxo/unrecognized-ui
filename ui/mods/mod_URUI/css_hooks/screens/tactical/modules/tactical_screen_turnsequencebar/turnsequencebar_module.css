@@ -1,0 +1,6 @@
+.turnsequencebar-module .header .character-name
+{
+	white-space		: nowrap;		/* Prevent the text from wrapping */
+	overflow		: hidden;		/* Hide the overflow */
+	text-overflow	: ellipsis;		/* Add "..." when text overflows */
+}

@@ -117,6 +117,12 @@
 		myEnemyEnumSetting.addAfterChangeCallback(genericCallback);
 		combatGeneralPage.addElement(myEnemyEnumSetting);
 	}
+
+	combatGeneralPage.addDivider("CombatGeneralDivider2");
+
+	// Turnsequencebar: Display Name and Title
+	local myBoolSetting = ::MSU.Class.BooleanSetting( "TSB_DisplayNameAndTitle", true , "Display Name + Title", "Display the Name and the Title (as opposed to just the Name) of the currently active character in the stats-section left to the turn sequence bar.");
+	combatGeneralPage.addElement(myBoolSetting);
 }
 
 // Filter Page

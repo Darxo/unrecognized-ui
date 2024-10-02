@@ -13,6 +13,11 @@
 			// ret.moraleMax = ::Const.MoraleState.Confident;	// Vanilla Fix: In Vanilla the maximum is "Ignore". But Ignore is more a sibling to "Steady" than the highest achievable morale
 		}
 
+		if (::modURUI.Mod.ModSettings.getSetting("TSB_DisplayNameAndTitle").getValue())
+		{
+			ret.nameOnly = ret.name;	// Display name + title in the turn sequence
+		}
+
 		return ret;
 	}
 });
