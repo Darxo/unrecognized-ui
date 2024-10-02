@@ -42,7 +42,9 @@ WorldTownScreenShopDialogModule.prototype.createDIV = function (_parentDiv)
 	// this.mContainer  $(document)
 	$(document).on('keyup.' + modURUI.ID + 'CS', null, this, function (_event)
 	{
-		if (self.isVisible() == false) return false;
+		if (self === null) return false;
+		if (self.mContainer === null) return false;
+		if (self.isVisible() === false) return false;
 
 		var ret = false;
 		if (MSU.Keybinds.isKeybindPressed(modURUI.ID, "Filter1", _event))
