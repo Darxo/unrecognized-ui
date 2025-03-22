@@ -52,10 +52,14 @@
 			}
 		}
 
-		if (::modURUI.Mod.ModSettings.getSetting("RoundInformationEnemyNumber").getValue() == "Visible (Total)")
+		// First we need to make sure that we are not in a one-time scenario
+		if (("State" in ::Tactical) && ::Tactical.State != null && !::Tactical.State.isScenarioMode())
 		{
-			local visibleEnemies = ::Tactical.Entities.getVisibleHostilesNum();
-			ret.enemiesCount = visibleEnemies + " (" + ret.enemiesCount + ")";
+			if (::modURUI.Mod.ModSettings.getSetting("RoundInformationEnemyNumber").getValue() == "Visible (Total)")
+			{
+				local visibleEnemies = ::Tactical.Entities.getVisibleHostilesNum();
+				ret.enemiesCount = visibleEnemies + " (" + ret.enemiesCount + ")";
+			}
 		}
 
 		return ret;
