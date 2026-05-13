@@ -1,0 +1,1 @@
+- add option to always display actor overlay of active player character

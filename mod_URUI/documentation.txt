@@ -12,7 +12,6 @@ Goal is to show certain information or hide unnecessary clutter to improve visua
 ### Future Plans: ###
 
 - amount of days you can pay for shown behind current crowns when below certain threshold
-- bigger console log (like legends) ?
 - shrink stats-section of character screen to make space for more skills/effects. e.g. by squishing headshots/vision. And removing Morale out of combat.
 - Implement the vanilla feature of highlighting the portion of life that was just lost
 - Remember itemfilter for differen shops
@@ -24,6 +23,13 @@ Goal is to show certain information or hide unnecessary clutter to improve visua
 - Display the spaceUsed and spaceMax depending on the current filter setting
 
 ### Changes: ###
+
+1.2.1
+	- Add setting (on) for displaying the title of the currently active character in the stat panel of the turn sequence bar
+	- Fix inventory sorting hotkeys being active outside of the character screen
+	- Fix combats not starting correctly with Reforged 0.8.18+
+	- Fix tactical scenarios not starting correctly
+	- Fix mood icon on world screen being below roster button
 
 1.2.0
 	- display number of visible enemies and number of non-brother allies on the battlefield (this can be turned off in the options)

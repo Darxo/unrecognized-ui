@@ -29,6 +29,10 @@
 - You can now change the enemy number to tell exactly how many enemies are currently visible to you compared to how many are present in total
   - If you **can see only 4** of your **opposing 15 enemies** then the enemy counter will now display: `4 (15)`
 
+### Title in Stat Panel
+
+- Add setting (on) for displaying the title of the currently active character next to their name in the stat panel of the turn sequence bar
+
 ## World
 
 ### Global Mood Icon
