@@ -10,7 +10,7 @@
 ::modURUI.HooksMod <- ::Hooks.register(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 ::modURUI.HooksMod.require(["mod_msu"]);
 
-::modURUI.HooksMod.queue(">mod_msu", function()
+::modURUI.HooksMod.queue([">mod_msu", ">mod_reforged"], function()
 {
 	::modURUI.Mod <- ::MSU.Class.Mod(::modURUI.ID, ::modURUI.Version, ::modURUI.Name);
 
